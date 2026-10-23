@@ -1,0 +1,34 @@
+/* Demandas: resumo no topo e uma seção fina por cliente. Cor só na bolinha de atraso. */
+
+.titulo-destaque { margin-bottom: 16px; }
+.resumo-demandas { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px 24px; margin: 0; }
+.resumo-demandas > div { min-width: 0; }
+.resumo-demandas dt { color: var(--tinta-suave); font-size: var(--t-14); }
+.resumo-demandas dd { margin: 4px 0 0; font-size: var(--t-28); font-stretch: var(--larg-titulo); font-weight: 700; line-height: 1.1; }
+
+.cliente .secao-cab h2 a { color: var(--tinta); text-decoration: none; }
+.cliente .secao-cab h2 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--acento); }
+
+.demandas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.demandas > li {
+  display: grid; grid-template-columns: 84px minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 0.9fr);
+  gap: 2px 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--linha); font-size: var(--t-14);
+}
+.demandas .tipo { color: var(--tinta-suave); font-size: var(--t-12); }
+.demandas .nome { font-size: var(--t-16); overflow-wrap: anywhere; }
+.demandas .nome a { color: var(--tinta); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--tinta-suave); }
+.demandas .nome a:hover { text-decoration-color: var(--acento); }
+.demandas .situacao { display: inline-flex; align-items: center; gap: 8px; color: var(--tinta-suave); }
+.demandas .prazo { display: grid; line-height: 1.35; }
+.demandas .prazo .suave { font-size: var(--t-12); }
+.demandas .detalhe { grid-column: 2 / -1; color: var(--tinta-suave); overflow-wrap: anywhere; }
+.demandas > li[data-encerrado="true"] { opacity: .6; }
+
+@media (max-width: 800px) {
+  .demandas > li { grid-template-columns: minmax(0, 1fr) auto; }
+  .demandas .tipo { grid-column: 1; }
+  .demandas .nome { grid-column: 1; }
+  .demandas .situacao { grid-column: 2; grid-row: 2; justify-self: end; }
+  .demandas .prazo { grid-column: 2; grid-row: 1; text-align: right; }
+  .demandas .detalhe { grid-column: 1 / -1; }
+}

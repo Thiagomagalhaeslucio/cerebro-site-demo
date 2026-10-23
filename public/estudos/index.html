@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/semana.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Estudos</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <section class="destaque" aria-labelledby="roadmaps-t">
+      <h2 id="roadmaps-t" class="titulo-destaque">Roadmaps</h2>
+      <div id="roadmaps" class="roadmaps"></div>
+      <p class="nota">Progresso é a conta dos checkboxes marcados. A tabela de status escrita à mão nos roadmaps pode estar desatualizada.</p>
+    </section>
+
+    <div class="dupla">
+      <section class="secao" aria-labelledby="proximos-t">
+        <h2 id="proximos-t">Próximos passos</h2>
+        <div id="proximos"></div>
+      </section>
+      <section class="secao" aria-labelledby="revisoes-t">
+        <h2 id="revisoes-t">Revisões pendentes</h2>
+        <div class="rolar">
+          <table class="tabela">
+            <thead><tr><th scope="col">Módulo</th><th scope="col" class="n">Data</th></tr></thead>
+            <tbody id="revisoes"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/estudos/app.js"></script>
+</body>
+</html>

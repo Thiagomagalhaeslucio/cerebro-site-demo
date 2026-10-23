@@ -1,0 +1,164 @@
+/* Base do cérebro: tipografia, texto e componentes comuns. Tokens em tokens.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 400 var(--t-16)/1.5 var(--f-ui);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-weight: 600; margin: 0; line-height: 1.2; }
+/* Voz própria: Archivo condensado (wdth 75) nos títulos de página, na data da Home, no patrimônio e na marca. */
+h1, .data-grande, .patrimonio .grande, .marca { font-stretch: var(--larg-titulo); font-weight: 800; }
+h1 { font-size: var(--t-28); font-weight: 700; letter-spacing: 0; }
+.data-grande, .patrimonio .grande, .marca { letter-spacing: 0; }
+/* H2 de seção: condensado, 24px, peso 700. Os h2 que rotulam um componente (coluna do
+   kanban, semana da faixa, navegação de mês, indicador do diagnóstico) são texto de
+   interface: largura normal e tamanho próprio. */
+h2 { font-size: var(--t-24); font-stretch: var(--larg-titulo); font-weight: 700; letter-spacing: 0; }
+.navegar h2, .coluna h2, .mes-cab h2, .semana-cab h2, .indicador h2 { font-stretch: 100%; font-weight: 600; letter-spacing: -0.005em; }
+h3 { font-size: var(--t-16); letter-spacing: -0.005em; }
+p { margin: 0; }
+
+a { color: var(--acento); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+code { font-family: var(--f-codigo); font-size: 0.86em; }
+
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; border-radius: var(--raio-fino); }
+main:focus { outline: none; }
+
+.icone { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
+.icone.p { width: 16px; height: 16px; vertical-align: -3px; }
+
+/* ---------- página ---------- */
+.pagina { max-width: var(--conteudo-max); margin: 0 auto; padding: 40px 40px 64px; container-type: inline-size; }
+.cabecalho { margin-bottom: 32px; }
+.cabecalho .linha-titulo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+.cabecalho .lido { color: var(--tinta-suave); font-size: var(--t-14); }
+.fonte { margin-top: 8px; color: var(--tinta-suave); font-size: var(--t-12); display: grid; gap: 4px; }
+.fonte .origem { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; }
+.fonte .recuo { width: 16px; flex: none; }
+.fonte .caminho { display: inline; overflow-wrap: anywhere; } /* semana.css torna .caminho um bloco (revisões) */
+.fonte a { display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; }
+
+.secao { margin-top: 40px; }
+.secao > h2 { margin-bottom: 12px; }
+.secao-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; }
+.secao-cab h2 { margin: 0; }
+.dupla { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 48px; }
+
+/* O destaque: o único painel com superfície na página. */
+.destaque {
+  background: var(--superficie); border: 1px solid var(--linha); border-radius: var(--r-destaque);
+  padding: 24px 28px;
+}
+
+.prosa { font-family: var(--f-texto); line-height: 1.65; max-width: 68ch; }
+.suave { color: var(--tinta-suave); }
+.nota { color: var(--tinta-suave); font-size: var(--t-14); margin-top: 12px; max-width: 72ch; }
+.nota.prosa { font-size: var(--t-16); }
+.vazio { color: var(--tinta-suave); font-size: var(--t-14); padding: 12px 0; }
+.numero { text-align: right; white-space: nowrap; }
+/* Algarismos tabulares só dentro de coluna de tabela. Fora dela (barras, cartões,
+   texto) os numerais são proporcionais: o tnum também dá largura fixa a vírgula e
+   ponto, e "R$ 2.165,00" ganha buracos. */
+.tabela td.n, .tabela th.n { font-variant-numeric: tabular-nums; }
+
+/* ---------- avisos e erros ---------- */
+.avisos { list-style: none; margin: 0 0 24px; padding: 0; }
+.avisos:empty { display: none; }
+.avisos li {
+  display: flex; gap: 10px; align-items: flex-start; padding: 10px 0 10px 12px;
+  border-left: 3px solid var(--atencao); font-size: var(--t-14);
+}
+.avisos li + li { margin-top: 4px; }
+.avisos li.erro { border-left-color: var(--alerta); }
+.avisos .icone { color: var(--tinta-suave); margin-top: 1px; }
+
+/* ---------- listas com linhas finas ---------- */
+.lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.lista > li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; padding: 10px 0; border-bottom: 1px solid var(--linha); align-items: baseline; }
+.lista .principal { overflow-wrap: anywhere; }
+.lista .meta { grid-column: 1; color: var(--tinta-suave); font-size: var(--t-14); overflow-wrap: anywhere; }
+.lista .valor { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; }
+.lista .valor.neg { color: var(--tinta); }
+
+
+/* ---------- tabelas densas ---------- */
+table.tabela { width: 100%; border-collapse: collapse; font-size: var(--t-14); }
+.tabela th, .tabela td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--linha); vertical-align: baseline; }
+.tabela th { color: var(--tinta-suave); font-weight: 500; border-bottom-color: var(--linha-forte); }
+.tabela th:last-child, .tabela td:last-child { padding-right: 0; }
+.tabela .n { text-align: right; white-space: nowrap; }
+.rolar { overflow-x: auto; }
+
+/* ---------- semáforo: bolinha + texto, linha lateral de 3px ---------- */
+.bolinha { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--tinta-suave); flex: none; }
+.bolinha.verde, .ind.verde { --status: var(--ok); }
+.bolinha.amarelo, .ind.amarelo { --status: var(--atencao); }
+.bolinha.vermelho, .ind.vermelho { --status: var(--alerta); }
+.bolinha.sem-dados, .ind.sem-dados { --status: var(--tinta-suave); }
+.bolinha { background: var(--status, var(--tinta-suave)); }
+.status { display: inline-flex; align-items: center; gap: 8px; }
+.ind { border-left: 3px solid var(--status, var(--linha)); padding: 4px 0 4px 16px; }
+
+/* ---------- ponto de compromisso (faixa da semana, agenda e legenda) ---------- */
+.pt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--acento-3); flex: none; }
+.pt.agenda { background: var(--acento-3); }
+/* Vazados: contorno de 1.5px com 3:1 contra o fundo nos dois temas
+   (acento e tinta suave, que já têm contraste de texto). */
+.pt.kanban { background: transparent; border: 1.5px solid var(--acento-3); }
+.pt.outra { background: transparent; border: 1.5px solid var(--tinta-suave); }
+.pt.atrasado { background: var(--alerta); border-color: var(--alerta); }
+
+/* ---------- barras horizontais com rótulo direto ---------- */
+.barras { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.barras li { display: grid; grid-template-columns: minmax(96px, 30%) minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; font-size: var(--t-14); }
+.barras .rot { overflow-wrap: anywhere; }
+.barras .trilho { height: 10px; background: color-mix(in srgb, var(--linha) 60%, transparent); border-radius: var(--raio-fino); overflow: hidden; }
+.barras .trilho, .barras .cheio { display: block; }
+.barras .cheio { height: 100%; background: var(--acento-1); border-radius: var(--raio-fino); }
+.barras li.destaque-dado .cheio { background: var(--acento); }
+.barras .val { text-align: right; white-space: nowrap; color: var(--tinta-suave); }
+.barras .val strong { color: var(--tinta); font-weight: 500; }
+
+/* ---------- progresso fino ---------- */
+.progresso { height: 4px; background: var(--linha); border-radius: var(--raio-fino); overflow: hidden; }
+.progresso > span { display: block; height: 100%; background: var(--acento); border-radius: var(--raio-fino); }
+
+/* ---------- controles ---------- */
+button, select, input { font: inherit; color: inherit; }
+.botao, select.controle {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 32px; padding: 0 10px; border-radius: var(--r-controle);
+  border: 1px solid var(--linha); background: transparent; color: var(--tinta); cursor: pointer;
+  font-size: var(--t-14);
+}
+.botao:hover { background: var(--acento-tinta); }
+.botao:disabled { opacity: .4; cursor: default; background: transparent; }
+.botao[aria-pressed="true"], .botao[aria-selected="true"] { border-color: var(--acento); color: var(--acento); background: var(--acento-tinta); }
+.botao.so-icone { width: 32px; padding: 0; }
+select.controle { padding-right: 6px; background: var(--superficie); }
+
+.grupo-botoes { display: inline-flex; gap: 4px; }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 960px) {
+  .dupla { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .pagina { padding: 24px 16px 48px; }
+  .destaque { padding: 18px 16px; }
+  .secao { margin-top: 32px; }
+  .barras li { grid-template-columns: minmax(0, 1fr) auto; }
+  .barras .trilho { grid-column: 1 / -1; grid-row: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

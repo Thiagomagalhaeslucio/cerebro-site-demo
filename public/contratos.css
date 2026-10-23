@@ -1,0 +1,10 @@
+/* Contratos: só o que é desta página. O layout, o documento e a impressão estão em documento.css. */
+
+/* Aviso fixo, fora do documento. Cor de status só na linha lateral. */
+.aviso-juridico { margin: 0 0 24px; padding: 2px 0 2px 12px; border-left: 3px solid var(--atencao); font-size: var(--t-14); }
+.sem-proposta { font-size: var(--t-14); color: var(--tinta-suave); }
+/* Aviso de CPF/CNPJ: só no formulário, nunca no documento; não bloqueia nada. */
+.aviso-campo { margin: -8px 0 14px; padding: 2px 0 2px 12px; border-left: 3px solid var(--atencao); font-size: var(--t-14); }
+.campo .aviso-campo { margin: 6px 0 0; }
+.opcao { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 12px; font-size: var(--t-16); cursor: pointer; }
+.opcao input { flex: none; width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--acento); }

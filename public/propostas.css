@@ -1,0 +1,22 @@
+/* Propostas: só o que é desta página. O layout, o documento e a impressão estão em documento.css. */
+
+/* ---------- cálculo do valor: seção recolhida ---------- */
+.calculo { border-top: 1px solid var(--linha); padding-top: 4px; }
+.calculo > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px;
+  font-size: var(--t-16); font-weight: 600; cursor: pointer; list-style: none;
+}
+.calculo > summary::-webkit-details-marker { display: none; }
+.calculo > summary .icone { color: var(--tinta-suave); transition: transform .15s; }
+.calculo[open] > summary .icone { transform: rotate(180deg); }
+.calculo-corpo { padding: 4px 0 8px; }
+.calculo-corpo > .dica { margin: -6px 0 14px; }
+.recomendado { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 20px 0 8px; padding-top: 14px; border-top: 1px solid var(--linha); font-size: var(--t-14); color: var(--tinta-suave); }
+.recomendado strong { font-size: var(--t-20); font-weight: 600; color: var(--tinta); }
+.valor-linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.valor-linha .botao { min-height: 36px; padding: 0 12px; }
+/* Aviso só do formulário: nunca entra no documento. Cor de status só na linha lateral. */
+.aviso-piso { margin-top: 8px; padding: 2px 0 2px 12px; border-left: 3px solid var(--atencao); font-size: var(--t-14); }
+@media (prefers-reduced-motion: reduce) {
+  .calculo > summary .icone { transition: none; }
+}

@@ -1,0 +1,67 @@
+/* Financeiro e diagnóstico. */
+
+.resumo-fin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 16px 40px; align-items: end; }
+.patrimonio .grande { font-size: var(--t-44); line-height: 1.1; margin: 2px 0 6px; }
+.patrimonio .status { font-size: var(--t-14); color: var(--tinta-suave); }
+.numeros-fin { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-left: 1px solid var(--linha); }
+.numeros-fin div { padding: 0 0 0 20px; }
+.numeros-fin dt { color: var(--tinta-suave); font-size: var(--t-14); }
+.numeros-fin dd { margin: 4px 0 0; font-size: var(--t-20); font-weight: 600; letter-spacing: -0.01em; }
+.numeros-fin .sub { display: block; font-size: var(--t-12); font-weight: 400; color: var(--tinta-suave); letter-spacing: 0; margin-top: 2px; }
+
+.metas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); display: grid; grid-template-columns: 8rem minmax(0, 1fr) auto; column-gap: 20px; }
+.metas li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; row-gap: 6px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--linha); }
+.metas .rot { font-weight: 500; }
+.metas .rot .suave { font-weight: 400; font-size: var(--t-14); display: block; }
+.metas .val { text-align: right; font-size: var(--t-14); color: var(--tinta-suave); white-space: nowrap; }
+.metas .val strong { color: var(--tinta); font-weight: 500; }
+
+.grafico { position: relative; height: 240px; }
+
+.movimentos td.desc { overflow-wrap: anywhere; }
+.movimentos .obs { display: block; color: var(--tinta-suave); font-size: var(--t-12); }
+.movimentos td:first-child { white-space: nowrap; color: var(--tinta-suave); }
+
+/* ---------- diagnóstico ---------- */
+.veredito { display: flex; gap: 14px; align-items: baseline; }
+.veredito .bolinha { width: 12px; height: 12px; transform: translateY(-2px); }
+.veredito p { font-size: var(--t-20); font-weight: 600; letter-spacing: -0.012em; }
+
+.indicadores { display: grid; gap: 32px; margin-top: 40px; }
+.indicadores > * { min-width: 0; }
+.indicador h2 { font-size: var(--t-16); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.indicador h2 .rot-status { font-size: var(--t-14); font-weight: 400; color: var(--tinta-suave); }
+.indicador .resumo { margin-top: 6px; }
+.indicador .acao { margin-top: 12px; line-height: 1.6; max-width: 68ch; }
+.indicador .acao strong { font-weight: 600; }
+.numeros-ind { margin: 12px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px 24px; font-size: var(--t-14); }
+.numeros-ind dt { color: var(--tinta-suave); }
+.numeros-ind dd { margin: 0; font-weight: 500; }
+.indicador .tabela { margin-top: 12px; max-width: 640px; }
+
+/* "Como calculei" fica recolhido; o título é o resumo. */
+details.como > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: var(--r-controle); }
+details.como > summary::-webkit-details-marker { display: none; }
+details.como > summary:hover h2 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--tinta-suave); }
+details.como .seta { color: var(--tinta-suave); transform: rotate(-90deg); transition: transform .15s ease-out; }
+details.como[open] .seta { transform: none; }
+details.como[open] > summary { margin-bottom: 12px; }
+.premissas { margin: 0; padding-left: 20px; line-height: 1.6; max-width: 68ch; }
+.premissas li + li { margin-top: 8px; }
+.premissas code { font-size: 0.82em; }
+
+@media (max-width: 900px) {
+  .resumo-fin { grid-template-columns: minmax(0, 1fr); }
+  .numeros-fin { border-left: 0; border-top: 1px solid var(--linha); padding-top: 14px; }
+  .numeros-fin div:first-child { padding-left: 0; }
+}
+@media (max-width: 600px) {
+  .patrimonio .grande { font-size: var(--t-28); }
+  .numeros-fin { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .numeros-fin div { padding-left: 0; }
+  .metas { grid-template-columns: minmax(0, 1fr) auto; }
+  .metas .progresso { grid-column: 1 / -1; grid-row: 2; }
+  .grafico { height: 200px; }
+}
+
+.cab-acoes { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; }

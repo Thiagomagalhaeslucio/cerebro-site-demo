@@ -1,0 +1,20 @@
+/* Formulário das áreas Orçamento e Propostas: texto sobre o fundo, grupos separados por linha fina. */
+.formulario fieldset { border: 0; border-top: 1px solid var(--linha); margin: 0; padding: 16px 0 24px; min-width: 0; }
+.formulario fieldset:first-child { border-top: 0; padding-top: 0; }
+.formulario legend { float: left; width: 100%; padding: 0; margin-bottom: 12px; font-size: var(--t-16); font-weight: 600; }
+.formulario legend + * { clear: both; }
+.campo { margin-bottom: 14px; min-width: 0; }
+.campo:last-child { margin-bottom: 0; }
+.campo label, .campo .rotulo { display: block; margin-bottom: 4px; font-size: var(--t-14); color: var(--tinta-suave); }
+.par { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 16px; }
+.dica { margin-top: 4px; font-size: var(--t-12); color: var(--tinta-suave); }
+.dica strong { color: var(--tinta); font-weight: 600; }
+.dica:empty { display: none; }
+
+select.controle, input.controle, textarea.controle {
+  width: 100%; min-height: 36px; padding: 0 10px; border-radius: var(--r-controle);
+  border: 1px solid var(--linha-forte); background: var(--superficie); color: var(--tinta); font-size: var(--t-16); font-family: inherit;
+}
+textarea.controle { display: block; min-height: 72px; padding: 8px 10px; line-height: 1.45; resize: vertical; }
+input.controle[type="number"] { font-variant-numeric: tabular-nums; }
+.campo .grupo-botoes .botao { min-width: 64px; min-height: 36px; }

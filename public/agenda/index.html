@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/semana.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Agenda</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="ferramentas">
+      <div class="grupo-botoes" role="tablist" aria-label="Visão">
+        <button type="button" class="botao" role="tab" id="aba-lista" aria-controls="visao-lista" aria-selected="true">Próximos 14 dias</button>
+        <button type="button" class="botao" role="tab" id="aba-mes" aria-controls="visao-mes" aria-selected="false">Mês</button>
+      </div>
+      <p class="legenda" id="legenda" aria-label="Origem dos itens"></p>
+    </div>
+
+    <section id="visao-lista" role="tabpanel" aria-labelledby="aba-lista">
+      <div class="dias" id="dias"></div>
+    </section>
+
+    <section class="destaque" id="visao-mes" role="tabpanel" aria-labelledby="aba-mes" hidden>
+      <div class="mes-cab">
+        <button type="button" class="botao so-icone" id="mes-anterior" aria-label="Mês anterior"></button>
+        <h2 id="mes-titulo" aria-live="polite">Mês</h2>
+        <button type="button" class="botao so-icone" id="mes-proximo" aria-label="Próximo mês"></button>
+      </div>
+      <div class="mes" id="mes-grade"></div>
+      <div class="dia-escolhido" id="dia-escolhido"></div>
+    </section>
+
+    <p class="nota">Só leitura. Compromissos vêm de <code>10-diario/agenda.md</code> (skill <code>semana</code> ou Obsidian); prazos, dos cards abertos do kanban; o resto, das datas das outras áreas.</p>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/agenda/app.js"></script>
+</body>
+</html>

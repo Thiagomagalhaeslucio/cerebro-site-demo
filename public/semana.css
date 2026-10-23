@@ -1,0 +1,113 @@
+/* Estudos, kanban e agenda. Tokens em tokens.css. */
+
+.titulo-destaque { margin-bottom: 8px; }
+
+/* ---------- estudos ---------- */
+.roadmaps { border-top: 1px solid var(--linha); }
+details.roadmap { border-bottom: 1px solid var(--linha); }
+details.roadmap > summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: 18px minmax(10rem, 2fr) minmax(0, 3fr) auto;
+  gap: 4px 14px; align-items: center; padding: 12px 0;
+}
+details.roadmap > summary::-webkit-details-marker { display: none; }
+details.roadmap > summary .nome { font-weight: 500; }
+details.roadmap .seta { color: var(--tinta-suave); transform: rotate(-90deg); transition: transform .15s ease-out; }
+details.roadmap[open] .seta { transform: none; }
+.conta { color: var(--tinta-suave); font-size: var(--t-14); white-space: nowrap; text-align: right; }
+.conta strong { color: var(--tinta); font-weight: 500; }
+.secoes { list-style: none; margin: 0; padding: 0 0 12px 32px; }
+.secoes li { display: grid; grid-template-columns: minmax(10rem, 2fr) minmax(0, 3fr) auto; gap: 4px 14px; align-items: center; padding: 6px 0; font-size: var(--t-14); }
+.secoes .progresso { height: 3px; }
+.roadmap-nome { font-size: var(--t-14); color: var(--tinta-suave); font-weight: 500; margin: 20px 0 6px; }
+.roadmap-nome:first-child { margin-top: 0; }
+.caminho { display: block; color: var(--tinta-suave); font-size: var(--t-12); overflow-wrap: anywhere; }
+
+/* ---------- barra de ferramentas ---------- */
+.ferramentas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 16px; }
+.navegar { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.navegar h2 { font-size: var(--t-16); }
+.ferramentas .resumo-semana { color: var(--tinta-suave); font-size: var(--t-14); }
+.ferramentas .resumo-semana strong { color: var(--tinta); font-weight: 500; }
+.filtro { margin-left: auto; color: var(--tinta-suave); font-size: var(--t-14); display: flex; align-items: center; gap: 8px; }
+
+/* ---------- kanban ---------- */
+.quadro { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 0; }
+.coluna { padding: 18px 20px 20px; min-width: 0; }
+.coluna + .coluna { border-left: 1px solid var(--linha); }
+.coluna h2 { font-size: var(--t-14); display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.coluna h2 .contador { color: var(--tinta-suave); font-weight: 400; }
+.cards { list-style: none; margin: 0; padding: 0; }
+.card { padding: 10px 0; border-top: 1px solid var(--linha); display: grid; gap: 4px; }
+.card .titulo-card { overflow-wrap: anywhere; font-size: var(--t-14); }
+.card.concluido .titulo-card { color: var(--tinta-suave); text-decoration: line-through; text-decoration-thickness: 1px; }
+.card .meta-card { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: var(--t-12); color: var(--tinta-suave); }
+.coluna .vazio { border-top: 1px solid var(--linha); }
+
+/* ---------- agenda ---------- */
+.legenda { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--tinta-suave); font-size: var(--t-12); margin-left: auto; }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+
+.dias { display: grid; gap: 28px; }
+.dia h3 { font-size: var(--t-14); display: flex; gap: 10px; align-items: baseline; margin-bottom: 6px; }
+.dia h3 .data { color: var(--tinta-suave); font-weight: 400; }
+.dia.hoje h3 .quando { color: var(--acento); }
+.eventos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.evento { display: grid; grid-template-columns: 8px 6.5rem minmax(0, 1fr); gap: 2px 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--linha); }
+.evento .pt { align-self: center; }
+.evento .hora { color: var(--tinta-suave); font-size: var(--t-14); white-space: nowrap; }
+.evento .titulo-ev { overflow-wrap: anywhere; }
+.evento .det { grid-column: 3; color: var(--tinta-suave); font-size: var(--t-12); overflow-wrap: anywhere; }
+.dia .nada { color: var(--tinta-suave); font-size: var(--t-14); padding: 9px 0; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+
+.mes-cab { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.mes-cab h2 { font-size: var(--t-16); min-width: 10ch; }
+.mes { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--linha); border-left: 1px solid var(--linha); }
+.mes .cab { color: var(--tinta-suave); font-size: var(--t-12); padding: 6px 8px; border-right: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+.mes button.cel {
+  font: inherit; text-align: left; color: var(--tinta); background: transparent; cursor: pointer;
+  border: 0; border-right: 1px solid var(--linha); border-bottom: 1px solid var(--linha); border-radius: 0;
+  min-height: 92px; padding: 6px 8px; display: flex; flex-direction: column; gap: 3px; min-width: 0; position: relative;
+}
+.mes button.cel:hover { background: var(--acento-tinta); }
+.mes button.cel.fora { color: var(--tinta-suave); }
+.mes button.cel.fora .item { opacity: .6; }
+.mes button.cel[aria-pressed="true"] { background: var(--acento-tinta); }
+.mes .num { font-size: var(--t-12); }
+.mes .cel.hoje .num { color: var(--acento); font-weight: 600; }
+.mes .cel.hoje::before { content: ""; position: absolute; left: 8px; right: 8px; top: 0; height: 2px; background: var(--acento); }
+.mes .item { display: flex; align-items: center; gap: 5px; font-size: var(--t-12); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.mes .item span { overflow: hidden; text-overflow: ellipsis; }
+.mes .mais { font-size: var(--t-12); color: var(--tinta-suave); }
+.mes .pontos { display: none; gap: 3px; flex-wrap: wrap; }
+.dia-escolhido { margin-top: 20px; }
+
+/* ---------- celular ---------- */
+@media (max-width: 960px) {
+  .quadro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .coluna:nth-child(3) { border-left: 0; }
+  .coluna:nth-child(n + 3) { border-top: 1px solid var(--linha); }
+}
+@media (max-width: 600px) {
+  .quadro { grid-template-columns: minmax(0, 1fr); }
+  .coluna + .coluna { border-left: 0; border-top: 1px solid var(--linha); }
+  .coluna { padding: 16px 0 12px; }
+  .quadro.destaque { padding: 0 16px; }
+  .filtro, .legenda { margin-left: 0; }
+  details.roadmap > summary { grid-template-columns: 18px minmax(0, 1fr) auto; }
+  details.roadmap > summary .progresso { grid-column: 2 / -1; grid-row: 2; }
+  .secoes { padding-left: 32px; }
+  .secoes li { grid-template-columns: minmax(0, 1fr) auto; }
+  .secoes li .progresso { grid-column: 1 / -1; grid-row: 2; }
+  .evento { grid-template-columns: 8px minmax(0, 1fr); gap: 2px 10px; }
+  .evento .hora { grid-column: 2; font-size: var(--t-12); }
+  .evento .titulo-ev, .evento .det { grid-column: 2; }
+  .evento .pt { grid-row: 1 / span 2; align-self: start; margin-top: 6px; }
+  .mes button.cel { min-height: 52px; padding: 4px; align-items: center; }
+  .mes .cel.hoje::before { left: 4px; right: 4px; }
+  .mes .item, .mes .mais { display: none; }
+  .mes .pontos { display: flex; justify-content: center; }
+  .mes .cab { padding: 4px; text-align: center; }
+}
+
+/* Roadmap em foco (tag "foco"): etiqueta fina no acento, sem preencher nada. */
+.marca-foco { margin-left: 8px; padding: 0 6px; border: 1px solid var(--acento); border-radius: var(--raio-fino); color: var(--acento); font-size: var(--t-12); font-weight: 500; line-height: 1.5; vertical-align: 2px; }

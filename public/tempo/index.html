@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/tempo.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Tempo</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="relogios">
+      <section class="destaque" aria-labelledby="cron-t">
+        <h2 id="cron-t" class="titulo-destaque">Cronômetro</h2>
+        <p class="digitos" id="cron-digitos" role="timer" aria-live="off">00:00</p>
+        <div class="campo">
+          <label for="cron-projeto">Projeto</label>
+          <input id="cron-projeto" class="controle" type="text" list="projetos" maxlength="60" autocomplete="off">
+          <datalist id="projetos"></datalist>
+        </div>
+        <div class="acoes">
+          <button type="button" class="botao" id="cron-iniciar">Iniciar</button>
+          <button type="button" class="botao" id="cron-zerar">Zerar</button>
+          <button type="button" class="botao" id="cron-copiar">Copiar linha</button>
+        </div>
+        <p class="dica" id="cron-dica">Conta o tempo aqui; "Copiar linha" gera a linha da tabela de 80-tempo para colar no Obsidian. O site não grava.</p>
+      </section>
+
+      <section class="destaque" aria-labelledby="pomo-t">
+        <h2 id="pomo-t" class="titulo-destaque">Pomodoro</h2>
+        <p class="fase" id="pomo-fase">Foco</p>
+        <p class="digitos" id="pomo-digitos" role="timer" aria-live="off">25:00</p>
+        <span class="progresso" id="pomo-barra-trilho" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Andamento da fase"><span id="pomo-barra"></span></span>
+        <div class="acoes">
+          <button type="button" class="botao" id="pomo-iniciar">Iniciar</button>
+          <button type="button" class="botao" id="pomo-pular">Pular fase</button>
+          <button type="button" class="botao" id="pomo-zerar">Zerar fase</button>
+        </div>
+        <p class="dica" id="pomo-info"></p>
+        <p class="dica aviso-fase" id="pomo-aviso" role="status"></p>
+      </section>
+    </div>
+
+    <section class="destaque" aria-labelledby="resumo-t">
+      <h2 id="resumo-t" class="titulo-destaque">Resumo</h2>
+      <dl id="resumo" class="resumo-tempo"></dl>
+    </section>
+
+    <section class="secao" aria-labelledby="semana-t">
+      <h2 id="semana-t">Esta semana</h2>
+      <div id="semana"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="mes-t">
+      <h2 id="mes-t">Maiores projetos do mês</h2>
+      <div id="mes"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="recentes-t">
+      <h2 id="recentes-t">Últimos registros</h2>
+      <div id="recentes"></div>
+    </section>
+    <div id="dica"></div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/tempo/relogio.js"></script>
+  <script src="/tempo/relogios.js"></script>
+  <script src="/tempo/app.js"></script>
+</body>
+</html>

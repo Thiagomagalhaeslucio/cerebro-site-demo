@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/metas.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Metas</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <section class="destaque" aria-labelledby="resumo-t">
+      <h2 id="resumo-t" class="titulo-destaque">Resumo</h2>
+      <dl id="resumo" class="resumo-metas"></dl>
+    </section>
+
+    <div id="areas"></div>
+    <div id="dica"></div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/metas/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{
+  "demo": {
+    "vault": "test/fixtures/vault-exemplo",
+    "porta": 3738,
+    "hoje": "2026-03-10",
+    "livros": "test/fixtures/livros-exemplo"
+  },
+  "backup": {
+    "destinos": ["~/Backups/cerebro"],
+    "manter": 30,
+    "alertarAposDias": 2
+  },
+  "biblioteca": {
+    "livros": { "pasta": null, "tag": "Livros" }
+  },
+  "tempo": {
+    "pomodoro": { "foco": 25, "pausaCurta": 5, "pausaLonga": 15, "focosAteLonga": 4 }
+  },
+  "financeiro": {
+    "metasPadrao": { "marco": 1000, "metaFinal": 10000, "reserva": 500 },
+    "diagnostico": {
+      "proximoSalario": { "mesesDepoisDoUltimo": 1 },
+      "proximoBeneficio": {
+        "valorMinimo": 100,
+        "ignorarDescricaoContendo": "Ajuste",
+        "diasDepois": 15
+      },
+      "transportePorDia": { "diaUtil": 10.5, "sabado": 15.5, "domingo": 0 },
+      "ignorarDescricaoComecandoCom": "Ajuste",
+      "categorias": {
+        "transporte": ["Transporte do dia", "Trem"],
+        "mercado": ["mercado", "compras"],
+        "comida fora": ["lanche", "salgado", "sorvete", "chocolate", "coxinha", "doce", "comida", "café"],
+        "assinaturas/serviços": ["assinatura", "streaming", "internet", "mensalidade"],
+        "cuidado pessoal/saúde": ["farmácia", "cabeleireiro"]
+      },
+      "categoriaPadrao": "outros",
+      "janelas": {
+        "mediaVrDias": 7,
+        "mediaDiaADiaDias": 14,
+        "comidaRecenteDias": 7,
+        "comidaAnteriorDias": 14
+      },
+      "semaforo": {
+        "orcamentoAmareloPontos": 10,
+        "orcamentoVermelhoPontos": 25,
+        "vrAmareloExcesso": 0.2,
+        "diaADiaAmareloFator": 1.5
+      },
+      "avisoGastoNaoLancadoContendo": "não lançado"
+    },
+    "lancar": {
+      "transporte": { "vtDiaUtil": 5, "vtSabado": 10, "trem": 5.5 },
+      "duplicadoSegundos": 30,
+      "commitAutomatico": true,
+      "sugestaoPorCategoria": {
+        "transporte": "vt",
+        "mercado": "vr",
+        "comida fora": "pergunte",
+        "assinaturas/serviços": "pessoal",
+        "cuidado pessoal/saúde": "pessoal"
+      }
+    }
+  }
+}

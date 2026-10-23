@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/documento.css">
+  <link rel="stylesheet" href="/static/propostas.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Propostas</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="doc-pagina">
+      <form id="form" class="formulario doc-form" autocomplete="off" onsubmit="return false">
+        <fieldset>
+          <legend>Cliente e projeto</legend>
+          <div class="campo">
+            <label for="cliente">Cliente</label>
+            <input id="cliente" class="controle" type="text">
+          </div>
+          <div class="campo">
+            <label for="projeto">Projeto</label>
+            <input id="projeto" class="controle" type="text">
+          </div>
+          <div class="campo">
+            <label for="resumo">Resumo</label>
+            <textarea id="resumo" class="controle" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Escopo</legend>
+          <div class="campo">
+            <label for="escopo">Escopo</label>
+            <textarea id="escopo" class="controle" rows="4"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+          <div class="campo">
+            <label for="fora">Fora do escopo</label>
+            <textarea id="fora" class="controle" rows="3"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+          <div class="campo">
+            <label for="entregaveis">Entregáveis</label>
+            <textarea id="entregaveis" class="controle" rows="3"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Prazo e validade</legend>
+          <div class="par">
+            <div class="campo">
+              <label for="inicio">Início</label>
+              <input id="inicio" class="controle" type="date">
+            </div>
+            <div class="campo">
+              <label for="entrega">Entrega desejada</label>
+              <input id="entrega" class="controle" type="date">
+            </div>
+          </div>
+          <div class="campo">
+            <label for="validade">Validade da proposta (dias)</label>
+            <input id="validade" class="controle" type="number" inputmode="numeric" min="0" step="1">
+            <p class="dica" id="validade-dica"></p>
+          </div>
+        </fieldset>
+
+        <details class="calculo" id="calculo">
+          <summary><span>Cálculo do valor</span><svg class="icone" aria-hidden="true"><use href="/static/icons.svg#i-chevron-down"></use></svg></summary>
+          <div class="calculo-corpo">
+            <div class="campo">
+              <label for="tipo">Tipo de trabalho</label>
+              <select id="tipo" class="controle"></select>
+            </div>
+            <div class="par">
+              <div class="campo">
+                <label for="horas">Horas estimadas</label>
+                <input id="horas" class="controle" type="number" inputmode="decimal" min="0" step="0.5">
+              </div>
+              <div class="campo">
+                <label for="complexidade">Complexidade</label>
+                <select id="complexidade" class="controle"></select>
+              </div>
+            </div>
+            <p class="dica" id="faixa"></p>
+            <div class="campo">
+              <span class="rotulo" id="urgente-r">Urgente</span>
+              <div class="grupo-botoes" role="group" aria-labelledby="urgente-r">
+                <button type="button" class="botao" id="urgente-nao" aria-pressed="true">Não</button>
+                <button type="button" class="botao" id="urgente-sim" aria-pressed="false">Sim</button>
+              </div>
+              <p class="dica" id="sugestao" aria-live="polite"></p>
+            </div>
+            <div class="par">
+              <div class="campo">
+                <label for="viagens">Viagens</label>
+                <input id="viagens" class="controle" type="number" inputmode="numeric" min="0" step="1">
+              </div>
+              <div class="campo">
+                <label for="km">Km total</label>
+                <input id="km" class="controle" type="number" inputmode="decimal" min="0" step="1">
+              </div>
+            </div>
+            <div class="par">
+              <div class="campo">
+                <label for="horasviagem">Horas de viagem</label>
+                <input id="horasviagem" class="controle" type="number" inputmode="decimal" min="0" step="0.5">
+              </div>
+              <div class="campo">
+                <label for="revisoes">Rodadas de revisão extra</label>
+                <input id="revisoes" class="controle" type="number" inputmode="numeric" min="0" step="1">
+              </div>
+            </div>
+            <div class="campo">
+              <label for="terceiros">Custos de terceiros (R$)</label>
+              <input id="terceiros" class="controle" type="number" inputmode="decimal" min="0" step="0.01">
+            </div>
+
+            <p class="recomendado"><span>Valor recomendado</span> <strong id="recomendado">—</strong></p>
+            <p class="dica" id="sem-calculo"></p>
+            <div class="campo">
+              <label for="valor">Valor proposto (R$)</label>
+              <div class="valor-linha">
+                <input id="valor" class="controle" type="number" inputmode="decimal" min="0" step="1">
+                <button type="button" class="botao" id="usar-recomendado">Usar o recomendado</button>
+              </div>
+              <p class="aviso-piso" id="aviso-piso" role="status" hidden></p>
+            </div>
+          </div>
+        </details>
+      </form>
+
+      <section class="destaque doc-painel" aria-labelledby="previa-t">
+        <div class="doc-topo">
+          <h2 id="previa-t">Prévia do documento</h2>
+          <div class="acoes">
+            <button type="button" class="botao" id="copiar" disabled></button>
+            <button type="button" class="botao" id="baixar" disabled></button>
+            <button type="button" class="botao" id="imprimir" disabled></button>
+            <span class="estado" id="estado" role="status"></span>
+          </div>
+        </div>
+        <article class="doc" id="doc"></article>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/static/orcamento/formula.js"></script>
+  <script src="/static/documentos/modelo.js"></script>
+  <script src="/static/propostas/documento.js"></script>
+  <script src="/static/documentos/pagina.js"></script>
+  <script src="/static/propostas/fragmento.js"></script>
+  <script src="/static/propostas/app.js"></script>
+</body>
+</html>

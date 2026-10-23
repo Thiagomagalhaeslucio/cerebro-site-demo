@@ -1,0 +1,102 @@
+/* Shell: barra lateral fixa de 248px, gaveta no celular, faixa da demo. */
+
+.barra {
+  position: fixed; inset: 0 auto 0 0; width: var(--barra-largura); z-index: 30;
+  display: flex; flex-direction: column;
+  background: var(--barra-fundo); color: var(--barra-texto);
+  padding: 20px 12px 12px;
+  --barra-suave: color-mix(in srgb, var(--barra-texto) 65%, transparent);
+  --barra-linha: color-mix(in srgb, var(--barra-texto) 28%, transparent);
+  --barra-hover: color-mix(in srgb, var(--barra-texto) 12%, transparent);
+}
+.barra a, .barra button { color: var(--barra-texto); }
+.barra :focus-visible { outline-color: var(--barra-texto); }
+.barra .marca {
+  display: block; color: var(--barra-texto); text-decoration: none; padding: 0 12px 20px;
+  font-size: var(--t-24); line-height: 1.1;
+}
+.barra .marca:hover { text-decoration: none; }
+.barra .fechar { display: none; }
+
+.menu { flex: 1; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.grupo + .grupo { margin-top: 16px; }
+.grupo-nome { margin: 0 0 4px; padding: 0 12px; color: var(--barra-suave); font-size: var(--t-12); font-weight: 500; }
+
+.menu a, .menu .em-breve {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  height: 36px; padding: 0 12px; border-radius: var(--r-controle);
+  font-size: var(--t-14); color: var(--barra-texto); text-decoration: none;
+}
+.menu a:hover { background: var(--barra-hover); text-decoration: none; }
+.menu a[aria-current="page"] { background: var(--barra-ativo-fundo); color: var(--barra-ativo-texto); font-weight: 500; }
+.menu a[aria-current="page"]:focus-visible { outline-color: var(--barra-texto); outline-offset: 2px; }
+.menu .em-breve { color: var(--barra-suave); cursor: default; }
+.menu .sub a, .menu .sub .em-breve { padding-left: 28px; height: 32px; } /* o ícone fica sob o do item pai, um pouco recuado */
+.menu-carregando { color: var(--barra-suave); font-size: var(--t-14); padding: 0 12px; }
+
+/* Itens "em breve" ficam num grupo recolhido no fim, com contador. */
+details.construcao > summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  padding: 0 12px; margin: 0 0 4px; border-radius: var(--r-controle); height: 28px;
+  color: var(--barra-suave); font-size: var(--t-12); font-weight: 500;
+}
+details.construcao > summary::-webkit-details-marker { display: none; }
+details.construcao > summary:hover { background: var(--barra-hover); }
+details.construcao .seta { width: 14px; height: 14px; transform: rotate(-90deg); }
+details.construcao[open] .seta { transform: none; }
+details.construcao .contador { margin-left: auto; }
+
+.barra-rodape { border-top: 1px solid var(--barra-linha); margin-top: 12px; padding: 12px 8px 0; font-size: var(--t-12); color: var(--barra-suave); display: grid; gap: 10px; }
+.conexao { display: flex; align-items: center; gap: 8px; overflow-wrap: anywhere; }
+.ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--alerta); flex: none; }
+.ponto.on { background: var(--ok); }
+.barra .ponto { background: #FFB3A8; }
+.barra .ponto.on { background: #7BE0A8; }
+.menu-avisos { color: var(--barra-suave); }
+.menu-avisos:empty { display: none; }
+.tema { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tema .grupo-botoes .botao { width: 30px; min-height: 28px; padding: 0; }
+.tema .grupo-botoes .icone { width: 16px; height: 16px; }
+.barra .botao { border-color: var(--barra-linha); }
+.barra .botao:hover { background: var(--barra-hover); }
+.barra .botao[aria-pressed="true"] { border-color: var(--barra-texto); color: var(--barra-texto); background: var(--barra-hover); }
+
+.conteudo { margin-left: var(--barra-largura); min-height: 100vh; }
+
+/* Faixa da demo: discreta, presa ao topo do conteúdo. */
+.faixa-demo {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--acento-tinta); border-bottom: 1px solid var(--linha); color: var(--tinta);
+  font-size: var(--t-14); padding: 8px 40px;
+}
+.faixa-demo strong { font-weight: 600; }
+
+.pular {
+  position: absolute; left: 8px; top: -60px; z-index: 100;
+  background: var(--acento); color: var(--superficie); padding: 8px 12px; border-radius: var(--r-controle);
+}
+.pular:focus { top: 8px; }
+
+.topo-movel { display: none; }
+.barra-fundo { display: none; }
+
+/* ---------- gaveta (abaixo de 800px) ---------- */
+@media (max-width: 799.98px) {
+  .conteudo { margin-left: 0; }
+  .topo-movel {
+    display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 25;
+    background: var(--superficie); border-bottom: 1px solid var(--linha); padding: 8px 16px;
+  }
+  .topo-movel .marca { color: var(--tinta); font-size: var(--t-24); line-height: 1.1; }
+  .topo-movel .marca:hover { text-decoration: none; }
+  .com-demo .topo-movel { top: 0; }
+  .faixa-demo { position: static; padding: 8px 16px; }
+  .barra {
+    width: min(300px, 86vw); transform: translateX(-100%); visibility: hidden;
+    transition: transform .18s ease-out, visibility .18s;
+  }
+  .barra .fechar { display: inline-flex; position: absolute; top: 14px; right: 12px; }
+  .menu-aberto .barra { transform: none; visibility: visible; }
+  .menu-aberto .barra-fundo { display: block; position: fixed; inset: 0; z-index: 28; background: rgb(0 0 0 / .4); }
+}

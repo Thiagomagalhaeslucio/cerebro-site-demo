@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/relatorios.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Relatórios</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="navegacao">
+      <div class="grupo-botoes" id="tipos" role="group" aria-label="Período">
+        <button type="button" class="botao" data-tipo="semana" aria-pressed="true">Semana</button>
+        <button type="button" class="botao" data-tipo="mes" aria-pressed="false">Mês</button>
+      </div>
+      <div class="passos">
+        <button type="button" class="botao so-icone" id="anterior" aria-label="Período anterior"></button>
+        <strong id="periodo" aria-live="polite"></strong>
+        <button type="button" class="botao so-icone" id="proximo" aria-label="Próximo período"></button>
+        <button type="button" class="botao" id="hoje-btn">Hoje</button>
+      </div>
+      <button type="button" class="botao" id="copiar">Copiar resumo</button>
+    </div>
+    <p class="dica" id="copiado" role="status"></p>
+
+    <section class="destaque" aria-labelledby="resumo-t">
+      <h2 id="resumo-t" class="titulo-destaque">Resumo</h2>
+      <dl id="resumo" class="resumo-relatorio"></dl>
+    </section>
+
+    <section class="secao" aria-labelledby="tempo-t">
+      <h2 id="tempo-t">Tempo por projeto</h2>
+      <div id="tempo"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="gastos-t">
+      <h2 id="gastos-t">Gastos por categoria</h2>
+      <div id="gastos"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="metas-t">
+      <h2 id="metas-t">Metas (situação de hoje)</h2>
+      <div id="metas"></div>
+    </section>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/relatorios/app.js"></script>
+</body>
+</html>

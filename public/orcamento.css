@@ -1,0 +1,46 @@
+/* Orçamento: formulário à esquerda, resultado à direita (empilhados no celular). */
+
+.orc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 0 48px; align-items: start; }
+.orc-resultado { position: sticky; top: 24px; }
+
+/* ---------- resultado ---------- */
+.orc-resultado h2 { font-size: var(--t-20); font-stretch: 100%; font-weight: 600; letter-spacing: -0.005em; }
+.orc-resultado .grande { margin: 4px 0 0; font-size: var(--t-44); line-height: 1.1; font-stretch: var(--larg-titulo); font-weight: 800; letter-spacing: 0; }
+.orc-numeros { margin: 20px 0 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--linha); }
+.orc-numeros > div { padding: 14px 0 0; }
+.orc-numeros > div + div { padding-left: 20px; border-left: 1px solid var(--linha); }
+.orc-numeros dt { color: var(--tinta-suave); font-size: var(--t-14); }
+.orc-numeros dd { margin: 2px 0 0; font-size: var(--t-20); font-weight: 600; letter-spacing: -0.01em; }
+.orc-numeros dd.sub { font-size: var(--t-12); font-weight: 400; color: var(--tinta-suave); letter-spacing: 0; margin-top: 2px; }
+.comp-t { margin-top: 28px; margin-bottom: 4px; }
+.composicao td:nth-child(2) { color: var(--tinta-suave); overflow-wrap: anywhere; }
+.composicao td:first-child { white-space: nowrap; }
+.composicao tfoot td { font-weight: 600; border-bottom: 0; }
+.composicao .zero td { color: var(--tinta-suave); }
+
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 24px; }
+.acoes .botao { min-height: 36px; padding: 0 14px; }
+.acoes .estado { font-size: var(--t-14); color: var(--tinta-suave); }
+
+.so-impressao { display: none; }
+
+@media (max-width: 960px) {
+  .orc { grid-template-columns: minmax(0, 1fr); }
+  .orc-resultado { position: static; margin-top: 8px; }
+}
+@media (max-width: 600px) {
+  .orc-resultado .grande { font-size: var(--t-28); }
+  .orc-numeros > div + div { padding-left: 14px; }
+}
+
+/* ---------- impressão limpa: só o resumo da proposta (sem piso, margem nem composição) ---------- */
+@media print {
+  .barra, .topo-movel, .barra-fundo, .pular, .faixa-demo, .cabecalho, .avisos, .orc { display: none !important; }
+  .conteudo { margin: 0; }
+  body { background: #fff; color: #000; }
+  .pagina { max-width: none; padding: 0; }
+  .so-impressao { display: block; font-family: var(--f-texto); font-size: 12pt; line-height: 1.6; max-width: 68ch; }
+  .so-impressao p { margin: 0 0 8pt; }
+  .so-impressao p:first-child { font-family: var(--f-ui); font-stretch: var(--larg-titulo); font-weight: 700; font-size: 20pt; margin-bottom: 14pt; }
+  @page { margin: 20mm; }
+}

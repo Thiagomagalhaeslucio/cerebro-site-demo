@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/documento.css">
+  <link rel="stylesheet" href="/static/contratos.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Contratos</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+    <p class="aviso-juridico" role="note">Minuta gerada a partir de modelo. Não substitui revisão jurídica. Veja 70-negocio/notas-juridicas.md.</p>
+
+    <div class="doc-pagina">
+      <form id="form" class="formulario doc-form" autocomplete="off" onsubmit="return false">
+        <fieldset>
+          <legend>Proposta aceita</legend>
+          <div class="campo" id="campo-proposta">
+            <label for="proposta">Preencher a partir de</label>
+            <select id="proposta" class="controle"></select>
+            <p class="dica" id="proposta-dica"></p>
+          </div>
+          <p class="sem-proposta" id="sem-proposta" hidden>Nenhuma proposta aceita ainda. Preencha à mão.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contratado</legend>
+          <div class="campo">
+            <label for="contratado_nome">Nome</label>
+            <input id="contratado_nome" class="controle" type="text" autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="contratado_cpf">CPF</label>
+            <input id="contratado_cpf" class="controle" type="text" inputmode="numeric" autocomplete="off">
+            <p class="aviso-campo" id="contratado_cpf-aviso" role="status" hidden></p>
+          </div>
+          <div class="campo">
+            <label for="contratado_endereco">Endereço</label>
+            <input id="contratado_endereco" class="controle" type="text" autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="contratado_email">E-mail</label>
+            <input id="contratado_email" class="controle" type="text" inputmode="email" autocomplete="off">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contratante</legend>
+          <div class="campo">
+            <label for="contratante_nome">Nome ou razão social</label>
+            <input id="contratante_nome" class="controle" type="text" autocomplete="off">
+          </div>
+          <div class="par">
+            <div class="campo">
+              <label for="contratante_tipo">Documento</label>
+              <select id="contratante_tipo" class="controle">
+                <option value="CNPJ">CNPJ</option>
+                <option value="CPF">CPF</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="contratante_documento">Número</label>
+              <input id="contratante_documento" class="controle" type="text" autocomplete="off">
+            </div>
+          </div>
+          <p class="aviso-campo" id="contratante_documento-aviso" role="status" hidden></p>
+          <div class="campo">
+            <label for="contratante_endereco">Endereço</label>
+            <input id="contratante_endereco" class="controle" type="text" autocomplete="off">
+          </div>
+          <div class="campo" id="campo-representante">
+            <label for="contratante_representante">Representante legal</label>
+            <input id="contratante_representante" class="controle" type="text" autocomplete="off">
+            <p class="dica">Só para CNPJ.</p>
+          </div>
+          <div class="campo">
+            <label for="contratante_email">E-mail</label>
+            <input id="contratante_email" class="controle" type="text" inputmode="email" autocomplete="off">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Projeto e pagamento</legend>
+          <div class="campo">
+            <label for="projeto">Projeto</label>
+            <input id="projeto" class="controle" type="text">
+          </div>
+          <div class="par">
+            <div class="campo">
+              <label for="valor">Valor total (R$)</label>
+              <input id="valor" class="controle" type="number" inputmode="decimal" min="0" step="0.01">
+            </div>
+            <div class="campo">
+              <label for="entrada">Entrada (%)</label>
+              <input id="entrada" class="controle" type="number" inputmode="decimal" min="0" max="100" step="1">
+              <p class="dica" id="entrada-dica"></p>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="forma_pagamento">Forma de pagamento</label>
+            <input id="forma_pagamento" class="controle" type="text">
+            <p class="dica">Texto livre, por exemplo: Pix, entrada em 20/03 e saldo na entrega.</p>
+          </div>
+          <div class="par">
+            <div class="campo">
+              <label for="inicio">Início</label>
+              <input id="inicio" class="controle" type="date">
+            </div>
+            <div class="campo">
+              <label for="entrega">Entrega</label>
+              <input id="entrega" class="controle" type="date">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Escopo (Anexo I)</legend>
+          <div class="campo">
+            <label for="escopo">Escopo</label>
+            <textarea id="escopo" class="controle" rows="4"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+          <div class="campo">
+            <label for="fora">Fora do escopo</label>
+            <textarea id="fora" class="controle" rows="3"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+          <div class="campo">
+            <label for="entregaveis">Entregáveis</label>
+            <textarea id="entregaveis" class="controle" rows="3"></textarea>
+            <p class="dica">Um item por linha.</p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Opções</legend>
+          <div class="campo">
+            <label for="foro">Foro</label>
+            <input id="foro" class="controle" type="text">
+            <p class="dica" id="foro-aviso" hidden>Informe o foro</p>
+          </div>
+          <label class="opcao"><input type="checkbox" id="sob_medida"> Sistema sob medida (substitui assinatura paga)</label>
+          <label class="opcao"><input type="checkbox" id="trata_dados"> O sistema trata dados pessoais</label>
+          <p class="dica">Marque se houver cadastro, formulário de contato, login, pagamento ou qualquer dado de pessoas.</p>
+          <div class="campo" id="campo-dados" hidden>
+            <label for="dados_tratados">Quais dados</label>
+            <input id="dados_tratados" class="controle" type="text">
+            <p class="dica">Aparece na cláusula de dados pessoais.</p>
+          </div>
+          <label class="opcao"><input type="checkbox" id="testemunhas"> Linhas para testemunhas</label>
+          <label class="opcao"><input type="checkbox" id="minuta" checked> Minuta (ainda não revisada por advogado)</label>
+        </fieldset>
+      </form>
+
+      <section class="destaque doc-painel" aria-labelledby="previa-t">
+        <div class="doc-topo">
+          <h2 id="previa-t">Prévia do documento</h2>
+          <div class="acoes">
+            <button type="button" class="botao" id="copiar" disabled></button>
+            <button type="button" class="botao" id="baixar" disabled></button>
+            <button type="button" class="botao" id="imprimir" disabled></button>
+            <span class="estado" id="estado" role="status"></span>
+          </div>
+        </div>
+        <article class="doc" id="doc"></article>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/static/documentos/modelo.js"></script>
+  <script src="/static/contratos/documento.js"></script>
+  <script src="/static/documentos/pagina.js"></script>
+  <script src="/static/contratos/app.js"></script>
+</body>
+</html>

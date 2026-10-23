@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/home.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <h1 class="data-grande" id="data-hoje">Hoje</h1>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <p class="frase prosa" id="frase" aria-live="polite">Lendo o vault.</p>
+
+    <section class="destaque semana" aria-labelledby="semana-titulo">
+      <div class="semana-cab">
+        <h2 id="semana-titulo">Esta semana</h2>
+        <p class="legenda-pontos" id="legenda"></p>
+      </div>
+      <ol class="faixa" id="faixa"></ol>
+    </section>
+
+    <div class="dupla">
+      <section class="secao" id="pede-atencao" aria-labelledby="atencao-titulo">
+        <h2 id="atencao-titulo">Pede atenção</h2>
+        <ul class="linhas" id="atencao"></ul>
+      </section>
+      <section class="secao" aria-labelledby="andamento-titulo">
+        <h2 id="andamento-titulo">Em andamento</h2>
+        <ul class="linhas" id="andamento"></ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/static/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+/* Home: a única página com presença. */
+
+/* Cabe numa linha mesmo no pior dia ("Quarta-feira, 30 de setembro" = 11,8 em em wdth 80):
+   8,2cqi é a largura do conteúdo da página dividida por 12,2. */
+.data-grande { font-size: clamp(1.5rem, 8.2cqi, var(--t-64)); line-height: 1; }
+
+.frase { font-size: var(--t-20); margin: 0 0 28px; color: var(--tinta); }
+.frase strong { font-weight: 600; }
+#pede-atencao { scroll-margin-top: 56px; } /* a faixa da demo é fixa no topo */
+
+/* ---------- faixa da semana ---------- */
+.semana-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: 16px; }
+.semana-cab h2 { font-size: var(--t-16); }
+.legenda-pontos { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--tinta-suave); font-size: var(--t-12); }
+.legenda-pontos span { display: inline-flex; align-items: center; gap: 6px; }
+
+.faixa { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.faixa li { border-left: 1px solid var(--linha); min-width: 0; }
+.faixa li:first-child { border-left: 0; }
+.faixa a {
+  display: flex; flex-direction: column; gap: 8px; min-height: 132px; height: 100%;
+  padding: 10px 12px 12px; color: var(--tinta); text-decoration: none; position: relative;
+}
+.faixa a:hover { background: var(--acento-tinta); text-decoration: none; }
+.faixa .dia-sem { font-size: var(--t-12); color: var(--tinta-suave); }
+.faixa .dia-num { font-size: var(--t-28); font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.faixa .hoje a::before { content: ""; position: absolute; left: 12px; right: 12px; top: 0; height: 2px; background: var(--acento); }
+.faixa .hoje .dia-num { color: var(--acento); }
+.faixa .passado { color: var(--tinta-suave); }
+.faixa .passado .dia-num { color: var(--tinta-suave); }
+.faixa .pontos { display: flex; flex-wrap: wrap; gap: 4px; }
+.faixa .resumo-dia { font-size: var(--t-12); color: var(--tinta-suave); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
+
+
+/* Entrada da faixa: o único movimento da página. */
+@keyframes entra { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.faixa.entrando li { animation: entra .32s ease-out both; }
+.faixa.entrando li:nth-child(2) { animation-delay: 30ms; }
+.faixa.entrando li:nth-child(3) { animation-delay: 60ms; }
+.faixa.entrando li:nth-child(4) { animation-delay: 90ms; }
+.faixa.entrando li:nth-child(5) { animation-delay: 120ms; }
+.faixa.entrando li:nth-child(6) { animation-delay: 150ms; }
+.faixa.entrando li:nth-child(7) { animation-delay: 180ms; }
+
+/* ---------- pede atenção e em andamento: cada item é uma linha com link ---------- */
+.linhas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.linhas > li { border-bottom: 1px solid var(--linha); }
+.linhas a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: baseline;
+  padding: 10px 0; color: var(--tinta);
+}
+.linhas a:hover { text-decoration: none; }
+.linhas .principal { display: flex; align-items: baseline; gap: 8px; overflow-wrap: anywhere; color: var(--tinta); }
+/* O link é a tinta com sublinhado fino em tinta suave; o acento aparece no hover e no foco. */
+.linhas .titulo { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--tinta-suave); }
+.linhas a:hover .titulo, .linhas a:focus-visible .titulo { text-decoration-color: var(--acento); }
+.linhas .bolinha { align-self: center; }
+.linhas .valor { text-align: right; font-size: var(--t-14); white-space: nowrap; }
+.linhas .meta { grid-column: 1 / -1; color: var(--tinta-suave); font-size: var(--t-14); overflow-wrap: anywhere; }
+.linhas .vazio { padding: 12px 0; }
+
+@media (max-width: 720px) {
+  .frase { font-size: var(--t-16); }
+  .faixa a { min-height: 92px; padding: 8px 4px 10px; gap: 6px; align-items: center; text-align: center; }
+  .faixa .dia-num { font-size: var(--t-20); }
+  .faixa .resumo-dia { display: none; }
+  .faixa .pontos { justify-content: center; }
+  .faixa .hoje a::before { left: 6px; right: 6px; }
+}

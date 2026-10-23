@@ -1,0 +1,49 @@
+/* Documentos gerados (proposta, contrato): formulário à esquerda, prévia à direita (empilhados no celular),
+   o papel em serifa e a impressão em A4. Compartilhado por /propostas e /contratos. */
+
+.doc-pagina { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 0 48px; align-items: start; }
+.doc-painel { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; }
+.doc-topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 20px; }
+.doc-topo h2 { font-size: var(--t-16); font-stretch: 100%; font-weight: 600; letter-spacing: 0; }
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.acoes .botao { min-height: 36px; padding: 0 12px; }
+.acoes .estado { font-size: var(--t-14); color: var(--tinta-suave); }
+
+/* ---------- o documento: papel com prosa em serifa ---------- */
+.doc { font-family: var(--f-texto); font-size: var(--t-16); line-height: 1.65; max-width: 68ch; overflow-wrap: anywhere; }
+.doc h1 { margin: 0 0 16px; font-family: var(--f-ui); font-size: var(--t-28); line-height: 1.15; font-stretch: var(--larg-titulo); font-weight: 800; letter-spacing: 0; }
+.doc h2 { margin: 0 0 6px; font-family: var(--f-ui); font-size: var(--t-20); line-height: 1.25; font-stretch: var(--larg-titulo); font-weight: 700; letter-spacing: 0; }
+.doc h3 { margin: 0 0 4px; font-family: var(--f-ui); font-size: var(--t-16); font-weight: 600; }
+.doc p, .doc ul, .doc ol { margin: 0 0 10px; }
+.doc ul, .doc ol { padding-left: 1.4em; }
+.doc li { margin-bottom: 4px; }
+.doc strong { font-weight: 600; }
+.doc-secao { margin-top: 22px; }
+.doc-vazio { font-family: var(--f-ui); font-size: var(--t-14); color: var(--tinta-suave); }
+
+@media (max-width: 960px) {
+  .doc-pagina { grid-template-columns: minmax(0, 1fr); }
+  .doc-painel { position: static; max-height: none; overflow: visible; margin-top: 24px; }
+}
+
+/* ---------- impressão: só o documento, em A4, sem barra lateral nem formulário ---------- */
+@media print {
+  @page { size: A4; margin: 20mm; }
+  .barra, .topo-movel, .barra-fundo, .pular, .faixa-demo, .cabecalho, .avisos, .aviso-juridico, .doc-form, .doc-topo { display: none !important; }
+  html, body { background: #fff; color: #000; }
+  .conteudo { margin: 0; min-height: 0; }
+  .pagina { max-width: none; margin: 0; padding: 0; }
+  .doc-pagina { display: block; }
+  .doc-painel { position: static; max-height: none; overflow: visible; border: 0; border-radius: 0; background: none; padding: 0; margin: 0; }
+  /* Fonte estática: as variáveis (eixos wdth/wght) saem do PDF como contorno, sem texto copiável. */
+  .doc, .doc h1, .doc h2, .doc h3 { font-family: Georgia, "Times New Roman", serif; font-stretch: 100%; font-variation-settings: normal; }
+  .doc { max-width: none; font-size: 11pt; line-height: 1.55; color: #000; }
+  .doc h1 { font-size: 20pt; color: #000; }
+  .doc h2 { font-size: 13pt; color: #000; }
+  .doc h1, .doc h2, .doc h3 { break-after: avoid; }
+  .doc li { break-inside: avoid; }
+  .doc-secao { margin-top: 14pt; break-inside: avoid; }
+  .doc p, .doc li { orphans: 3; widows: 3; }
+  /* Assinaturas: o bloco fica inteiro e nunca sozinho numa página (pagina.js junta o fim da seção anterior em .doc-fim). */
+  .doc-fim, .doc-assinaturas { break-inside: avoid; }
+}

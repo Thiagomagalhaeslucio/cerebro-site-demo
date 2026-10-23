@@ -1,0 +1,38 @@
+/* Metas: resumo no topo e uma lista por área. Cor só na bolinha do status. */
+
+.titulo-destaque { margin-bottom: 16px; }
+.resumo-metas { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; margin: 0; }
+.resumo-metas > div { min-width: 0; }
+.resumo-metas dt { color: var(--tinta-suave); font-size: var(--t-14); display: flex; align-items: center; gap: 8px; }
+.resumo-metas dd { margin: 4px 0 0; font-size: var(--t-28); font-stretch: var(--larg-titulo); font-weight: 700; line-height: 1.1; }
+
+.metas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.metas > li {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(96px, 1fr) minmax(0, 0.9fr) 112px 104px;
+  gap: 2px 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--linha); font-size: var(--t-14);
+}
+.metas .nome { font-size: var(--t-16); overflow-wrap: anywhere; }
+.metas .nome a { color: var(--tinta); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--tinta-suave); }
+.metas .nome a:hover { text-decoration-color: var(--acento); }
+.metas .quanto { color: var(--tinta-suave); }
+.metas .quanto strong { color: var(--tinta); font-weight: 500; }
+.metas .prazo { display: grid; line-height: 1.35; }
+.metas .prazo .suave { font-size: var(--t-12); }
+.metas .situacao { justify-self: start; }
+.metas .detalhe { grid-column: 1 / -1; color: var(--tinta-suave); overflow-wrap: anywhere; }
+.metas .detalhe span + span::before { content: " "; }
+
+.dica code { display: block; margin-top: 8px; overflow-wrap: anywhere; }
+
+@media (max-width: 960px) {
+  .resumo-metas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .metas > li { grid-template-columns: minmax(0, 1fr) auto; }
+  .metas .nome { grid-column: 1; }
+  .metas .situacao { grid-column: 2; grid-row: 1; justify-self: end; }
+  .metas .progresso { grid-column: 1 / -1; }
+  .metas .quanto { grid-column: 1; }
+  .metas .prazo { grid-column: 2; text-align: right; }
+}
+@media (max-width: 600px) {
+  .resumo-metas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

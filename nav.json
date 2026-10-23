@@ -1,0 +1,22 @@
+{
+  "grupos": ["Visão", "Trabalho", "Vida"],
+  "itens": [
+    { "id": "home", "titulo": "Home", "rota": "/", "grupo": "Visão", "estado": "ativo" },
+    { "id": "agenda", "titulo": "Agenda", "rota": "/agenda", "grupo": "Visão", "estado": "em-breve" },
+    { "id": "metas", "titulo": "Metas", "rota": "/metas", "grupo": "Visão", "estado": "ativo" },
+    { "id": "relatorios", "titulo": "Relatórios", "rota": "/relatorios", "grupo": "Visão", "estado": "em-breve" },
+
+    { "id": "kanban", "titulo": "Kanban semanal", "curto": "Kanban", "rota": "/kanban", "grupo": "Trabalho", "estado": "em-breve" },
+    { "id": "orcamento", "titulo": "Orçamento", "rota": "/orcamento", "grupo": "Trabalho", "estado": "ativo" },
+    { "id": "propostas", "titulo": "Propostas", "rota": "/propostas", "grupo": "Trabalho", "estado": "em-breve" },
+    { "id": "contratos", "titulo": "Contratos", "rota": "/contratos", "grupo": "Trabalho", "estado": "em-breve" },
+    { "id": "demandas", "titulo": "Demandas", "rota": "/demandas", "grupo": "Trabalho", "estado": "em-breve" },
+    { "id": "tempo", "titulo": "Tempo", "rota": "/tempo", "grupo": "Trabalho", "estado": "em-breve" },
+
+    { "id": "financeiro", "titulo": "Financeiro", "rota": "/financeiro", "grupo": "Vida", "estado": "ativo" },
+    { "id": "diagnostico", "titulo": "Diagnóstico", "rota": "/financeiro/diagnostico", "grupo": "Vida", "pai": "financeiro", "estado": "ativo" },
+    { "id": "lancar", "titulo": "Lançar movimento", "curto": "Lançar", "rota": "/financeiro/lancar", "grupo": "Vida", "pai": "financeiro", "estado": "ativo" },
+    { "id": "estudos", "titulo": "Estudos", "rota": "/estudos", "grupo": "Vida", "estado": "ativo" },
+    { "id": "biblioteca", "titulo": "Biblioteca", "rota": "/biblioteca", "grupo": "Vida", "estado": "em-breve" }
+  ]
+}

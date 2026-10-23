@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/financeiro.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Financeiro</h1>
+        <div class="cab-acoes">
+          <span class="lido" id="meta">Lendo o vault.</span>
+          <a class="botao" href="/financeiro/lancar">Lançar</a>
+        </div>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <section class="destaque resumo-fin" aria-label="Resumo">
+      <div class="patrimonio">
+        <p class="suave">Patrimônio</p>
+        <p class="grande" id="patrimonio">—</p>
+        <p class="status" id="conferencia"></p>
+      </div>
+      <dl class="numeros-fin" id="numeros"></dl>
+    </section>
+
+    <section class="secao" aria-labelledby="metas-t">
+      <h2 id="metas-t">Metas</h2>
+      <ul class="metas" id="metas"></ul>
+    </section>
+
+    <div class="dupla">
+      <section class="secao" aria-labelledby="saldos-t">
+        <h2 id="saldos-t">Saldo por panela</h2>
+        <ul class="barras" id="saldos"></ul>
+        <p class="nota" id="nota-vt"></p>
+      </section>
+      <section class="secao" aria-labelledby="mes-t">
+        <h2 id="mes-t">Saídas do mês por panela</h2>
+        <ul class="barras" id="mes"></ul>
+      </section>
+    </div>
+
+    <section class="secao" aria-labelledby="dias-t">
+      <div class="secao-cab">
+        <h2 id="dias-t">Saídas por dia, últimos 30 dias</h2>
+        <p class="suave" id="dias-resumo"></p>
+      </div>
+      <div class="grafico"><canvas id="grafico-dias" role="img" aria-label="Saídas por dia nos últimos 30 dias"></canvas></div>
+    </section>
+
+    <section class="secao" aria-labelledby="mov-t">
+      <h2 id="mov-t">Últimos 15 movimentos</h2>
+      <div class="rolar">
+        <table class="tabela movimentos">
+          <thead><tr><th scope="col">Data</th><th scope="col">Descrição</th><th scope="col">Panela</th><th scope="col" class="n">Valor</th></tr></thead>
+          <tbody id="movimentos"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="dupla">
+      <section class="secao" aria-labelledby="pend-t">
+        <h2 id="pend-t">Reposições pendentes</h2>
+        <ul class="lista" id="pendentes"></ul>
+      </section>
+      <section class="secao" aria-labelledby="sal-t">
+        <h2 id="sal-t">Último salário</h2>
+        <ul class="lista" id="salario"></ul>
+      </section>
+    </div>
+
+    <p class="nota prosa" id="rodape"></p>
+  </main>
+
+  <script src="/vendor/chart.umd.min.js"></script>
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/financeiro/app.js"></script>
+</body>
+</html>

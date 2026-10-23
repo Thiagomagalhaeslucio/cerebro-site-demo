@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/financeiro.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Diagnóstico</h1>
+        <span class="lido" id="meta">Calculando.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <section class="destaque" aria-label="Veredito">
+      <div class="veredito" id="veredito"><i class="bolinha sem-dados"></i><p>Calculando.</p></div>
+    </section>
+
+    <div class="indicadores" id="indicadores"></div>
+
+    <section class="secao" aria-labelledby="onde-t">
+      <h2 id="onde-t">Para onde foi o dinheiro</h2>
+      <ul class="barras" id="para-onde"></ul>
+      <p class="nota" id="comida"></p>
+    </section>
+
+    <details class="secao como">
+      <summary>
+        <svg class="icone p seta" aria-hidden="true"><use href="/static/icons.svg#i-chevron-down"/></svg>
+        <h2 id="como-t">Como calculei</h2>
+      </summary>
+      <ul class="premissas" id="premissas"></ul>
+      <p class="nota">As premissas ficam em <code>config.json</code> do cerebro-site; a página recalcula sozinha quando o arquivo é salvo. Feriados não entram na conta.</p>
+    </details>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/financeiro/diagnostico.js"></script>
+</body>
+</html>

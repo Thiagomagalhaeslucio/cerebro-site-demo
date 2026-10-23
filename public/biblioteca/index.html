@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/biblioteca.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Biblioteca</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <section class="destaque" aria-labelledby="resumo-t">
+      <h2 id="resumo-t" class="titulo-destaque">Resumo</h2>
+      <dl id="resumo" class="resumo-biblioteca"></dl>
+    </section>
+
+    <section class="secao" aria-labelledby="notas-t">
+      <h2 id="notas-t">Notas e livros</h2>
+      <form class="filtros" id="filtros" autocomplete="off" role="search">
+        <div class="campo">
+          <label for="busca">Buscar</label>
+          <input id="busca" class="controle" type="search" placeholder="título, autor, módulo ou tag">
+        </div>
+        <div class="campo" id="c-tipo" hidden>
+          <label for="tipo">Tipo</label>
+          <select id="tipo" class="controle">
+            <option value="">Notas e livros</option>
+            <option value="nota">Só notas</option>
+            <option value="livro">Só livros</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="pasta">Pasta</label>
+          <select id="pasta" class="controle"></select>
+        </div>
+        <div class="campo">
+          <label for="status">Status</label>
+          <select id="status" class="controle"></select>
+        </div>
+      </form>
+      <p class="dica" id="contagem" role="status"></p>
+      <h3 class="livros-t" id="livros-t" hidden>Livros</h3>
+      <div id="livros"></div>
+      <h3 class="livros-t" id="notas-sub" hidden>Notas</h3>
+      <div id="notas"></div>
+    </section>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/biblioteca/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/semana.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Kanban semanal</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="ferramentas">
+      <div class="navegar" role="group" aria-label="Semana">
+        <button type="button" class="botao so-icone" id="anterior" aria-label="Semana anterior"></button>
+        <h2 id="semana" aria-live="polite">Semana</h2>
+        <button type="button" class="botao so-icone" id="proxima" aria-label="Próxima semana"></button>
+      </div>
+      <p class="resumo-semana" id="resumo"></p>
+      <label class="filtro">Projeto
+        <select class="controle" id="projeto"><option value="">todos</option></select>
+      </label>
+    </div>
+
+    <section id="quadro" class="destaque quadro" aria-label="Colunas do kanban"></section>
+    <p class="nota">Só leitura: os cards mudam pela skill <code>semana</code> ou no Obsidian. Atrasado quer dizer que o prazo passou e o card não está em Feito.</p>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/kanban/app.js"></script>
+</body>
+</html>

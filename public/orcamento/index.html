@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/orcamento.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Orçamento</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="orc">
+      <form id="form" class="formulario" autocomplete="off" onsubmit="return false">
+        <fieldset>
+          <legend>Trabalho</legend>
+          <div class="campo">
+            <label for="tipo">Tipo de trabalho</label>
+            <select id="tipo" class="controle"></select>
+          </div>
+          <div class="campo">
+            <label for="horas">Horas estimadas</label>
+            <input id="horas" class="controle" type="number" inputmode="decimal" min="0" step="0.5">
+            <p class="dica" id="faixa">Escolha um tipo para preencher com o ponto médio da faixa, ou digite as horas.</p>
+          </div>
+          <div class="campo">
+            <label for="complexidade">Complexidade</label>
+            <select id="complexidade" class="controle"></select>
+            <p class="dica" id="mult"></p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Prazo</legend>
+          <div class="campo">
+            <span class="rotulo" id="urgente-r">Urgente</span>
+            <div class="grupo-botoes" role="group" aria-labelledby="urgente-r">
+              <button type="button" class="botao" id="urgente-nao" aria-pressed="true">Não</button>
+              <button type="button" class="botao" id="urgente-sim" aria-pressed="false">Sim</button>
+            </div>
+          </div>
+          <div class="par">
+            <div class="campo">
+              <label for="inicio">Início</label>
+              <input id="inicio" class="controle" type="date">
+            </div>
+            <div class="campo">
+              <label for="entrega">Entrega desejada</label>
+              <input id="entrega" class="controle" type="date">
+            </div>
+          </div>
+          <p class="dica" id="sugestao" aria-live="polite"></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Deslocamento</legend>
+          <div class="par">
+            <div class="campo">
+              <label for="viagens">Viagens</label>
+              <input id="viagens" class="controle" type="number" inputmode="numeric" min="0" step="1">
+            </div>
+            <div class="campo">
+              <label for="km">Km total</label>
+              <input id="km" class="controle" type="number" inputmode="decimal" min="0" step="1">
+            </div>
+          </div>
+          <div class="campo">
+            <label for="horasviagem">Horas de viagem</label>
+            <input id="horasviagem" class="controle" type="number" inputmode="decimal" min="0" step="0.5">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Extras</legend>
+          <div class="par">
+            <div class="campo">
+              <label for="revisoes">Rodadas de revisão extra</label>
+              <input id="revisoes" class="controle" type="number" inputmode="numeric" min="0" step="1">
+              <p class="dica" id="incluidas"></p>
+            </div>
+            <div class="campo">
+              <label for="terceiros">Custos de terceiros (R$)</label>
+              <input id="terceiros" class="controle" type="number" inputmode="decimal" min="0" step="0.01">
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <section class="destaque orc-resultado" aria-labelledby="resultado-t" aria-live="polite">
+        <h2 id="resultado-t">Valor recomendado</h2>
+        <p class="grande" id="recomendado">—</p>
+        <p class="nota" id="sem-calculo" hidden></p>
+        <dl class="orc-numeros">
+          <div><dt>Piso</dt><dd id="piso">—</dd><dd class="sub" id="piso-sub">O menor valor que posso aceitar.</dd></div>
+          <div><dt id="entrada-r">Entrada</dt><dd id="entrada">—</dd><dd class="sub">Paga antes de começar.</dd></div>
+        </dl>
+
+        <h3 class="comp-t">Composição</h3>
+        <div class="rolar">
+          <table class="tabela composicao">
+            <thead><tr><th scope="col">Item</th><th scope="col">Como</th><th scope="col" class="n">R$</th></tr></thead>
+            <tbody id="composicao"></tbody>
+          </table>
+        </div>
+
+        <div class="acoes">
+          <button type="button" class="botao" id="copiar" disabled></button>
+          <button type="button" class="botao" id="imprimir" disabled></button>
+          <button type="button" class="botao" id="gerar-proposta" disabled></button>
+          <span class="estado" id="estado" role="status"></span>
+        </div>
+      </section>
+    </div>
+
+    <section class="so-impressao" id="impressao" aria-hidden="true"></section>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/static/orcamento/formula.js"></script>
+  <script src="/static/orcamento/resumo.js"></script>
+  <script src="/static/propostas/fragmento.js"></script>
+  <script src="/static/orcamento/app.js"></script>
+</body>
+</html>

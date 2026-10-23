@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/lancar.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Lançar movimento</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+
+    <div class="lancar">
+      <form id="form" class="formulario" autocomplete="off" novalidate>
+        <fieldset>
+          <legend id="op-t">Operação</legend>
+          <div class="grupo-botoes operacoes" id="operacoes" role="group" aria-labelledby="op-t"></div>
+        </fieldset>
+
+        <fieldset id="campos" aria-labelledby="op-t">
+          <div class="campo" id="c-saiDe" hidden>
+            <label for="saiDe">Sai de</label>
+            <select id="saiDe" class="controle"></select>
+            <p class="dica" id="saiDe-dica"></p>
+          </div>
+          <div class="campo" id="c-panela" hidden>
+            <label for="panela" id="panela-r">Panela</label>
+            <select id="panela" class="controle"></select>
+            <p class="dica" id="panela-dica"></p>
+          </div>
+          <div class="campo" id="c-modo" hidden>
+            <label for="modo">Modo da reposição</label>
+            <select id="modo" class="controle">
+              <option value="quitar">Quitar pendências</option>
+              <option value="livre">Transferência livre (adiantamento)</option>
+            </select>
+          </div>
+          <div class="campo" id="c-pendencias" hidden>
+            <span class="rotulo" id="pendencias-r">Pendências a quitar (marque as que esta reposição paga)</span>
+            <div class="pendencias" id="pendencias" role="group" aria-labelledby="pendencias-r"></div>
+          </div>
+          <div class="par">
+            <div class="campo" id="c-valor" hidden>
+              <label for="valor" id="valor-r">Valor (R$)</label>
+              <input id="valor" class="controle" type="text" inputmode="decimal" placeholder="0,00">
+            </div>
+            <div class="campo" id="c-saldoReal" hidden>
+              <label for="saldoReal">Saldo real (R$)</label>
+              <input id="saldoReal" class="controle" type="text" inputmode="decimal" placeholder="0,00">
+            </div>
+            <div class="campo" id="c-data" hidden>
+              <label for="data">Data</label>
+              <input id="data" class="controle" type="date">
+            </div>
+          </div>
+          <p class="dica" id="valor-dica"></p>
+          <div class="campo" id="c-descricao" hidden>
+            <label for="descricao">Descrição</label>
+            <input id="descricao" class="controle" type="text" maxlength="120">
+            <p class="dica" id="descricao-dica"></p>
+          </div>
+          <p class="dica dica-op" id="op-dica"></p>
+        </fieldset>
+
+        <div class="acoes">
+          <button type="submit" class="botao" id="previa-btn">Pré-visualizar</button>
+          <span class="estado" id="estado" role="status"></span>
+        </div>
+        <p class="dica atalhos">Enter pré-visualiza; Enter de novo, com a prévia aberta, confirma. Esc fecha a prévia. Setas trocam a operação.</p>
+      </form>
+
+      <section class="destaque lancar-previa" id="painel" aria-labelledby="previa-t" aria-live="polite">
+        <h2 id="previa-t">Pré-visualização</h2>
+        <div id="previa-corpo"><p class="vazio">Preencha o formulário e aperte Enter. Nada é gravado antes de você confirmar.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/financeiro/lancar.js"></script>
+</body>
+</html>

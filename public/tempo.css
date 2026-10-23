@@ -1,0 +1,39 @@
+/* Tempo: resumo no topo e listas de horas por projeto. Sem cor: só a barra de acento. */
+
+.titulo-destaque { margin-bottom: 16px; }
+.resumo-tempo { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 24px; margin: 0; }
+.resumo-tempo > div { min-width: 0; }
+.resumo-tempo dt { color: var(--tinta-suave); font-size: var(--t-14); }
+.resumo-tempo dd { margin: 4px 0 0; font-size: var(--t-28); font-stretch: var(--larg-titulo); font-weight: 700; line-height: 1.1; }
+
+.tempo-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.tempo-lista > li {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(96px, 1fr) minmax(0, 0.8fr);
+  gap: 2px 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--linha); font-size: var(--t-14);
+}
+.tempo-lista .nome { font-size: var(--t-16); overflow-wrap: anywhere; }
+.tempo-lista .quanto { color: var(--tinta-suave); text-align: right; }
+.tempo-lista .quanto strong { color: var(--tinta); font-weight: 500; }
+
+@media (max-width: 960px) {
+  .resumo-tempo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tempo-lista > li { grid-template-columns: minmax(0, 1fr) auto; }
+  .tempo-lista .progresso { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* Cronômetro e pomodoro: dois painéis lado a lado; só o acento da barra e do dígito em curso tem cor. */
+.relogios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 32px; }
+.relogios .destaque { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.relogios .titulo-destaque { margin-bottom: 0; }
+.digitos { margin: 0; font-size: var(--t-64); font-stretch: var(--larg-titulo); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.digitos[data-rodando="true"] { color: var(--acento); }
+.fase { margin: 0; color: var(--tinta-suave); font-size: var(--t-14); }
+.relogios .acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+.relogios .dica { margin: 0; }
+.aviso-fase:empty { display: none; }
+#pomo-barra-trilho { display: block; }
+
+@media (max-width: 960px) {
+  .relogios { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .digitos { font-size: var(--t-44); }
+}
