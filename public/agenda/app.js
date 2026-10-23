@@ -139,6 +139,19 @@
     }
   }
 
+  const TIPOS = ['aula', 'prova', 'estudo', 'trabalho', 'pessoal', 'financeiro'];
+  $('a-tipo').append(...TIPOS.map((t) => el('option', { value: t, textContent: t })));
+  $('a-data').value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  $('novo-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const corpo = { data: $('a-data').value, titulo: $('a-titulo').value, tipo: $('a-tipo').value };
+    for (const [k, id] of [['inicio', 'a-inicio'], ['fim', 'a-fim'], ['obs', 'a-obs']]) if ($(id).value.trim()) corpo[k] = $(id).value.trim();
+    $('novo-msg').textContent = 'Gravando...';
+    const r = await window.escreverNoVault('agenda/criar', corpo);
+    $('novo-msg').textContent = r.ok ? 'Compromisso criado.' : r.mensagem;
+    if (r.ok) { for (const id of ['a-titulo', 'a-inicio', 'a-fim', 'a-obs']) $(id).value = ''; carregar(); }
+  });
+
   carregar();
   // A agenda junta várias áreas: recarrega com qualquer mudança.
   window.aoVivo('*', carregar);

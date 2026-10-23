@@ -14,7 +14,16 @@
   let semana = null; // semana mostrada; mantida entre atualizações
   let projeto = '';
 
-  function cartao(c) {
+  let msgMover = '';
+  async function mover(s, col, c, para) {
+    msgMover = 'Movendo...';
+    const r = await window.escreverNoVault('kanban/operar', { semana: s.semana, versao: s.versao, operacao: { tipo: 'mover', de: col.titulo, indice: col.cards.indexOf(c), titulo: c.titulo, para } });
+    msgMover = r.ok ? '' : r.mensagem;
+    if (!r.ok) avisos($('avisos'), [r.mensagem], true);
+    carregar(); // não espera o aviso do servidor: a tela já mostra o que ficou no arquivo
+  }
+
+  function cartao(c, s, col) {
     const prazo = c.prazo
       ? el('span', { class: 'status' },
         BOLINHA[c.etiqueta] ? el('i', { class: `bolinha ${BOLINHA[c.etiqueta]}` }) : null,
@@ -22,7 +31,11 @@
       : null;
     return el('li', { class: 'card' + (c.concluido ? ' concluido' : '') },
       el('span', { class: 'titulo-card', textContent: c.titulo }),
-      prazo || c.projeto ? el('span', { class: 'meta-card' }, prazo, c.projeto ? el('span', { textContent: '#' + c.projeto }) : null) : null);
+      prazo || c.projeto ? el('span', { class: 'meta-card' }, prazo, c.projeto ? el('span', { textContent: '#' + c.projeto }) : null) : null,
+      el('span', { class: 'mover' },
+        el('select', { 'aria-label': `Mover "${c.titulo}" para`, onchange: (e) => mover(s, col, c, e.target.value) },
+          el('option', { value: '', textContent: 'Mover para…' }),
+          ...s.colunas.filter((o) => o.titulo !== col.titulo).map((o) => el('option', { value: o.titulo, textContent: o.titulo })))));
   }
 
   function render() {
@@ -55,13 +68,17 @@
     if (!opcoes.includes(projeto)) projeto = '';
     sel.value = projeto;
 
+    const selCol = $('n-coluna');
+    if (selCol.options.length !== s.colunas.length) selCol.replaceChildren(...s.colunas.map((c) => el('option', { value: c.titulo, textContent: c.titulo })));
+    $('n-projetos').replaceChildren(...dados.projetos.map((p) => el('option', { value: p })));
+
     $('quadro').replaceChildren(...s.colunas.map((col, n) => {
       const cards = col.cards.filter((c) => !projeto || c.projeto === projeto);
       const id = `col-${n}`;
       return el('section', { class: 'coluna', 'aria-labelledby': id },
         el('h2', { id }, col.titulo, el('span', { class: 'contador', textContent: String(cards.length) })),
         cards.length
-          ? el('ul', { class: 'cards' }, ...cards.map(cartao))
+          ? el('ul', { class: 'cards' }, ...cards.map((c) => cartao(c, s, col)))
           : el('p', { class: 'vazio', textContent: projeto ? 'Nada deste projeto.' : 'Vazio.' }));
     }));
   }
@@ -74,6 +91,20 @@
   $('anterior').addEventListener('click', () => ir(-1));
   $('proxima').addEventListener('click', () => ir(1));
   $('projeto').addEventListener('change', (e) => { projeto = e.target.value; render(); });
+
+  $('novo-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const s = dados.semanas.find((x) => x.semana === semana);
+    if (!s) return;
+    const op = { tipo: 'criar', coluna: $('n-coluna').value, titulo: $('n-titulo').value };
+    if ($('n-prazo').value) op.prazo = $('n-prazo').value;
+    if ($('n-projeto').value.trim()) op.projeto = $('n-projeto').value.trim().replace(/^#/, '');
+    $('novo-msg').textContent = 'Gravando...';
+    const r = await window.escreverNoVault('kanban/operar', { semana: s.semana, versao: s.versao, operacao: op });
+    $('novo-msg').textContent = r.ok ? 'Card criado.' : r.mensagem;
+    if (r.ok) { $('n-titulo').value = ''; $('n-prazo').value = ''; }
+    carregar();
+  });
 
   async function carregar() {
     try {

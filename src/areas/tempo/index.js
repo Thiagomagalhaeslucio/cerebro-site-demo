@@ -2,6 +2,7 @@
 
 const { PASTA, readTempo, pomodoroPremissas } = require('./data');
 const { loadSiteConfig } = require('../../config');
+const { registrar } = require('./gravar');
 
 // "1 h 07 min", "45 min", "2 h".
 const horas = (min) => {
@@ -35,6 +36,7 @@ module.exports = {
       return d;
     },
   },
+  post: { registrar },
   resumo,
   fontes: () => [PASTA],
 };

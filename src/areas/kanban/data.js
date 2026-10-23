@@ -3,6 +3,7 @@
 // Kanban semanal: 10-diario/kanban-AAAA-SS.md (formato do plugin Kanban do Obsidian).
 // Colunas = títulos ##; card = "- [ ] título @AAAA-MM-DD #projeto". Só leitura.
 
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const { stripFrontmatter, parseFrontmatter } = require('../../md');
@@ -125,6 +126,7 @@ function lerSemanas(vault, hoje, avisos) {
       segunda,
       domingo: addDays(segunda, 6),
       arquivo: rel,
+      versao: crypto.createHash('sha256').update(texto).digest('hex'), // a escrita confere
       colunas,
       total: cards.length,
       feitos: cards.filter((c) => c.concluido).length,

@@ -2,6 +2,7 @@
 
 const { DIR, readAgenda, lerEventosDaAgenda } = require('./data');
 const { addDays } = require('../../datas');
+const { criar } = require('./gravar');
 
 const ddmm = (iso) => `${iso.slice(8, 10)}/${iso.slice(5, 7)}`;
 
@@ -36,6 +37,7 @@ module.exports = {
   titulo: 'Agenda',
   watch: [DIR],
   api: { '': (vault, ctx) => readAgenda(vault, ctx) },
+  post: { criar },
   resumo,
   datas,
   fontes: () => ['10-diario/agenda.md'],

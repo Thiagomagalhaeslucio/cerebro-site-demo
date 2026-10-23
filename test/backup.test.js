@@ -92,6 +92,26 @@ test('com gpg: a cópia sai criptografada e só abre com a chave (chaveiro tempo
   assert.equal(listar(path.join(c.destino, r.arquivo)), r.arquivos);
 });
 
+test('nuvem: recusa sem gpg, e com gpg espelha as últimas cópias num commit único (remoto local)', (t) => {
+  const { execFileSync } = require('node:child_process');
+  const { espelhar } = require('../scripts/backup');
+  const c = cenario(t);
+  const remoto = path.join(c.raiz ?? path.dirname(c.destino), 'remoto.git');
+  execFileSync('git', ['init', '-q', '--bare', remoto]);
+  const pasta = path.join(path.dirname(remoto), 'espelho');
+  const nuvem = { pasta, remoto, manter: 2 };
+  fs.mkdirSync(c.destino, { recursive: true });
+  for (const n of ['2026-03-08-2130', '2026-03-09-2130', '2026-03-10-2130']) fs.writeFileSync(path.join(c.destino, `cerebro-${n}.tar.zst.gpg`), `cifrado ${n}`);
+  fs.writeFileSync(path.join(c.destino, 'cerebro-2026-03-11-2130.tar.zst'), 'em claro: não pode sair');
+
+  assert.match(espelhar({ origem: c.destino, nuvem, gpg: null }).motivo, /exige backup\.gpg/);
+  assert.equal(fs.existsSync(pasta), false, 'sem gpg nada é criado');
+  for (let i = 0; i < 2; i++) assert.equal(espelhar({ origem: c.destino, nuvem, gpg: 'x' }).ok, true); // duas vezes: continua um commit só
+  const lista = execFileSync('git', ['--git-dir', remoto, 'ls-tree', '--name-only', 'main'], { encoding: 'utf8' }).split('\n').filter(Boolean);
+  assert.deepEqual(lista, ['LEIA-ME.txt', 'cerebro-2026-03-09-2130.tar.zst.gpg', 'cerebro-2026-03-10-2130.tar.zst.gpg']);
+  assert.equal(execFileSync('git', ['--git-dir', remoto, 'rev-list', '--count', 'main'], { encoding: 'utf8' }).trim(), '1');
+});
+
 test('Home: avisa quando nunca houve backup, quando falhou e quando está atrasado; some quando está em dia', (t) => {
   const c = cenario(t);
   const home = (extra = {}) => montarHome([], c.vault, { hoje: '2026-03-10', demo: false, estadoDir: c.estadoDir, ...extra }).avisos;

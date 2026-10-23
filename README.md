@@ -323,7 +323,7 @@ O sistema trata dados pessoais: {{dados_tratados}}
 
 ## Decisões de projeto
 
-- **Só leitura, com uma exceção.** O site não escreve no vault, para que o vault continue sendo a única fonte, exceto em Lançar movimento (`/financeiro/lancar`), que só mexe em `40-financeiro/panelas.md` e `movimentos.md` e segue à risca as regras da skill `financeiro` do vault. Salvaguardas na seção "Lançar movimento".
+- **Quase só leitura.** O vault continua sendo a única fonte. O site escreve só onde a rotina pede formulário: Lançar movimento (`/financeiro/lancar`, em `40-financeiro/panelas.md` e `movimentos.md`, pelas regras da skill `financeiro`), registrar tempo (`80-tempo`), pôr compromisso na agenda e criar/mover card do kanban, os três com as mesmas salvaguardas (token, origem, versão, gravação atômica, verificação, commit git só do arquivo). Detalhes em `docs/referencia.md`.
 - **Regras determinísticas.** O diagnóstico e a calculadora usam regras fixas e premissas em `config.json`, para que o mesmo vault dê sempre o mesmo veredito e cada número possa ser explicado ("Como calculei").
 - **Dado ausente vira aviso, não valor.** "A definir" não entra como zero, porque zero esconderia o buraco no preço ou no saldo.
 - **CSP `default-src 'self'`.** Sem script, fonte ou imagem de terceiros, e `frame-ancestors 'none'`. Chart.js e fontes vêm de `node_modules`, sem CDN.

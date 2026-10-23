@@ -328,6 +328,16 @@ entrega progresso, status e ritmo; a página só formata.
 **Home:** metas atrasadas são linhas de "Pede atenção" (e entram na contagem da frase); as demais
 viram uma linha "Metas" em "Em andamento", com as contagens.
 
+## Hoje (`/hoje`)
+
+Resumo do dia, **só leitura**: mostra `10-diario/hoje.md`, que a skill `hoje` do vault gera sob demanda
+(agenda do Google Calendar e da `agenda.md`, e-mails que pedem ação do Gmail). O site não acessa Google nem
+e-mail. Formato: frontmatter com `gerado` (data e hora ISO) e seções `## Agenda`, `## E-mails que pedem ação`,
+`## Para limpar`, com itens `- texto`. Se o resumo tem mais de 20 h, a página avisa. Cartão da Home: itens da
+agenda e e-mails que pedem ação. Limpar e organizar o Gmail é a skill `emails` (plano, ok, ação; só Lixeira,
+nunca apagar de vez). Sincronizar a agenda do vault com o Google Calendar é a skill `calendario` (mão única,
+agenda "Cérebro", nunca apaga). Código: `src/areas/hoje/`, `public/hoje/`, `test/hoje.test.js`.
+
 ## Relatórios (`/relatorios`)
 
 A **semana** (segunda a domingo) ou o **mês**, com o que as outras áreas já leem, num lugar só:
@@ -457,11 +467,13 @@ são opcionais):
   devolve `semana`, `mes` (com `maiores`), `recentes` e `avisos`. O registro continua pelo terminal
   (`t <projeto>` e `t stop`); a página só lê.
 
-**Cronômetro e pomodoro** (no alto da página; rodam no navegador e **não gravam nada**):
+**Cronômetro e pomodoro** (no alto da página; o relógio roda no navegador, e só **Gravar** escreve no vault):
 
 - **Cronômetro:** Iniciar, Pausar/Continuar e Zerar, com campo de projeto (sugere os do mês). Com mais de 30 s
-  e parado, **Copiar linha** põe na área de transferência a linha `| data | projeto | início | fim | min | nota |`
-  para colar no Obsidian (ou mostra a linha, se o navegador recusar copiar).
+  e parado, **Gravar** acrescenta a linha `| data | projeto | início | fim | min | nota |` em
+  `80-tempo/AAAA-MM.md` (cria o arquivo do mês se preciso) e zera o relógio. **Registrar à mão** (projeto, data,
+  minutos, nota) faz o mesmo sem cronômetro. `POST /api/tempo/registrar` (`src/areas/tempo/gravar.js`): só
+  acrescenta; data não pode ser depois de hoje; minutos 1 a 1440; projeto em minúsculas com hífen.
 - **Pomodoro:** foco, pausa curta e, depois de N focos, pausa longa. As durações vêm de `config.json →
   tempo.pomodoro` (`foco`, `pausaCurta`, `pausaLonga`, `focosAteLonga`, em minutos; valor ruim volta ao padrão
   25/5/15/4, com aviso). A fase seguinte começa **parada**: quem decide recomeçar é você. Ao fim da fase o site
@@ -660,7 +672,8 @@ config.local.json            (ignorado pelo git) o que é só seu; sobrepõe o c
 src/areas/financeiro/        leitura (data.js) e diagnóstico (diagnostico.js)
 src/areas/estudos/           roadmaps e revisões pendentes
 src/areas/financeiro/lancar.js     motor puro dos lançamentos
-src/areas/financeiro/lancar-io.js  versão, anti-duplicado, gravação atômica e desfazer (a única escrita)
+src/areas/financeiro/lancar-io.js  versão, anti-duplicado, gravação atômica e desfazer do Lançar
+src/escrita.js                    escrita de um arquivo (Tempo, Agenda, Kanban): mesmas salvaguardas, commit só do arquivo
 src/areas/metas/             metas automáticas e manuais, status e ritmo
 src/areas/tempo/             tabelas de 80-tempo: semana, mês, projetos
 src/areas/biblioteca/        notas de 20-biblioteca: pasta, status, busca
@@ -714,3 +727,19 @@ test/                        node --test + vault de exemplo
 
 As rotas `/api/<id>` e `/api/<id>/<sub>`, as páginas `/<id>` e `/<id>/<nome>`,
 o cartão da Home e o aviso de mudança via SSE saem de graça.
+
+## Escrita pelo site em Tempo, Agenda e Kanban
+
+Além do Lançar, três áreas gravam, todas por `src/escrita.js` (demo recusa com 403; host, origem, token e corpo
+JSON de até 4 KB conferidos em `src/app.js`; gravação atômica; verificação em memória pelo parser da área, sem
+aviso novo; anti-duplicado de 30 s; commit git só do arquivo escrito, com o estado anterior em commit à parte):
+
+| rota | arquivo | o que faz |
+|---|---|---|
+| `POST /api/tempo/registrar` | `80-tempo/AAAA-MM.md` | acrescenta uma linha de tempo |
+| `POST /api/agenda/criar` | `10-diario/agenda.md` | acrescenta um compromisso (`data`, `inicio`, `fim`, `titulo`, `tipo`, `obs`) |
+| `POST /api/kanban/operar` | `10-diario/kanban-AAAA-SS.md` | `criar` card numa coluna ou `mover` entre colunas; exige `versao` (hash do arquivo, vem em `/api/kanban`); mover para Feito marca `[x]` |
+
+Só acrescentam ou movem; editar texto, renomear e apagar continuam no Obsidian. Desfazer: o `git` do vault
+(cada operação é um commit). Testes: `test/escrita.test.js` (em cópia temporária) e
+`scripts/teste-tempo-ui.js` / `scripts/teste-escrita-ui.js` (Firefox, em cópia temporária).

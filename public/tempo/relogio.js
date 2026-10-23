@@ -65,8 +65,18 @@
     return `| ${data} | ${String(projeto || '').trim() || 'projeto'} | ${hm(ini)} | ${hm(fim)} | ${Math.max(1, Math.round(ms / MIN))} |  |`;
   }
 
+  // Os mesmos dados da linha, como objeto, para gravar pelo site.
+  function registroDoCron(c, agora, projeto) {
+    const ms = cronometroMs(c, agora);
+    const ini = new Date(c.primeiro ?? agora - ms);
+    const fim = new Date(agora);
+    const data = `${ini.getFullYear()}-${dois(ini.getMonth() + 1)}-${dois(ini.getDate())}`;
+    const hm = (d) => `${dois(d.getHours())}:${dois(d.getMinutes())}`;
+    return { projeto: String(projeto || '').trim(), data, inicio: hm(ini), fim: hm(fim), min: Math.max(1, Math.round(ms / MIN)) };
+  }
+
   return {
-    MIN, FASES,
+    MIN, FASES, registroDoCron,
     cronometroNovo, cronometroMs, cronometroRodando, cronometroIniciar, cronometroPausar,
     duracao, pomodoroNovo, pomodoroRodando, pomodoroRestante, pomodoroIniciar, pomodoroPausar,
     pomodoroTerminou, pomodoroAvancar, pomodoroDia,

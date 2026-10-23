@@ -43,7 +43,7 @@
   window.cerebro = { el, icone, relativo, avisos };
 
   const ICONES = {
-    home: 'house', agenda: 'calendar', metas: 'target', relatorios: 'chart-line',
+    home: 'house', hoje: 'sun', agenda: 'calendar', metas: 'target', relatorios: 'chart-line',
     kanban: 'square-kanban', orcamento: 'calculator', propostas: 'file-text', contratos: 'file-pen-line',
     demandas: 'inbox', tempo: 'timer', financeiro: 'wallet', diagnostico: 'activity', lancar: 'square-pen',
     estudos: 'graduation-cap', biblioteca: 'library',

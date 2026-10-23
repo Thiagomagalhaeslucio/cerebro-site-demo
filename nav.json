@@ -2,6 +2,7 @@
   "grupos": ["Visão", "Trabalho", "Vida"],
   "itens": [
     { "id": "home", "titulo": "Home", "rota": "/", "grupo": "Visão", "estado": "ativo" },
+    { "id": "hoje", "titulo": "Hoje", "rota": "/hoje", "grupo": "Visão", "estado": "em-breve" },
     { "id": "agenda", "titulo": "Agenda", "rota": "/agenda", "grupo": "Visão", "estado": "em-breve" },
     { "id": "metas", "titulo": "Metas", "rota": "/metas", "grupo": "Visão", "estado": "ativo" },
     { "id": "relatorios", "titulo": "Relatórios", "rota": "/relatorios", "grupo": "Visão", "estado": "em-breve" },

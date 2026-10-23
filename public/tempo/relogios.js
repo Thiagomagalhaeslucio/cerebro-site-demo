@@ -65,14 +65,14 @@
     cron = R.cronometroNovo();
     mudou();
   }
-  async function cronCopiar() {
-    const linha = R.linhaDaTabela(cron, Date.now(), projeto);
-    try {
-      await navigator.clipboard.writeText(linha);
-      $('cron-dica').textContent = 'Linha copiada. Cole na tabela de 80-tempo/AAAA-MM.md, no Obsidian.';
-    } catch {
-      $('cron-dica').textContent = `Não consegui copiar; selecione e copie: ${linha}`;
-    }
+  async function cronGravar() {
+    const reg = R.registroDoCron(cron, Date.now(), projeto);
+    if (!reg.projeto) { $('cron-dica').textContent = 'Escreva o projeto antes de gravar.'; return; }
+    $('cron-gravar').disabled = true;
+    const r = await window.escreverNoVault('tempo/registrar', reg);
+    $('cron-dica').textContent = r.ok ? `Gravado: ${reg.projeto}, ${reg.min} min.` : r.mensagem;
+    if (r.ok) cron = R.cronometroNovo();
+    mudou();
   }
 
   function pomoAlternar() {
@@ -108,7 +108,7 @@
     $('cron-digitos').textContent = R.relogio(ms);
     $('cron-iniciar').textContent = rodando ? 'Pausar' : ms > 0 ? 'Continuar' : 'Iniciar';
     $('cron-zerar').disabled = ms === 0 && !rodando;
-    $('cron-copiar').disabled = rodando || ms < 30000;
+    $('cron-gravar').disabled = rodando || ms < 30000;
     $('cron-digitos').dataset.rodando = String(rodando);
 
     if (pomo.dia !== hoje()) pomo = R.pomodoroDia(pomo, hoje());
@@ -151,7 +151,7 @@
   function ligar() {
     $('cron-iniciar').addEventListener('click', cronAlternar);
     $('cron-zerar').addEventListener('click', cronZerar);
-    $('cron-copiar').addEventListener('click', cronCopiar);
+    $('cron-gravar').addEventListener('click', cronGravar);
     $('cron-projeto').addEventListener('input', (e) => { projeto = e.target.value; salvar(); });
     $('pomo-iniciar').addEventListener('click', pomoAlternar);
     $('pomo-pular').addEventListener('click', pomoPular);

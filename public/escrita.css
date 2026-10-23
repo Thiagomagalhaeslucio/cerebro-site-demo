@@ -1,0 +1,7 @@
+/* Bloco "novo" das áreas que gravam pelo site (Tempo, Agenda, Kanban): recolhido até pedir. */
+details.novo { margin: 0 0 20px; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+details.novo > summary { cursor: pointer; padding: 12px 0; font-weight: 500; }
+details.novo[open] > summary { padding-bottom: 8px; }
+details.novo .formulario { padding: 4px 0 16px; max-width: 40rem; }
+.mover { display: block; margin-top: 6px; }
+.mover select { min-height: 28px; font-size: var(--t-12); padding: 0 6px; border-radius: var(--r-controle); border: 1px solid var(--linha-forte); background: var(--superficie); color: var(--tinta); }

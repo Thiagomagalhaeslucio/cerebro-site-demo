@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cérebro</title>
+  <script src="/static/tema.js"></script>
+  <link rel="stylesheet" href="/static/tokens.css">
+  <link rel="stylesheet" href="/static/base.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/semana.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecalho">
+      <div class="linha-titulo">
+        <h1>Hoje</h1>
+        <span class="lido" id="meta">Lendo o vault.</span>
+      </div>
+    </header>
+
+    <ul id="avisos" class="avisos"></ul>
+    <div id="secoes"></div>
+    <p class="nota">Este resumo é gerado sob demanda: peça ao Claude Code, na pasta do vault, "atualiza o hoje" (skill <code>hoje</code>). O site só mostra o arquivo <code>10-diario/hoje.md</code>. Limpar ou organizar e-mails também é pedido a ele (skill <code>emails</code>), com plano e confirmação antes.</p>
+  </main>
+
+  <script src="/static/shell.js"></script>
+  <script src="/static/live.js"></script>
+  <script src="/hoje/app.js"></script>
+</body>
+</html>

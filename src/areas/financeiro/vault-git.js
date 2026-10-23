@@ -44,7 +44,11 @@ function identidade(vault) {
 // Commit só dos `arquivos`. { ok, hash } ou { ok:false, motivo }. Sem mudança nos arquivos: ok sem hash novo.
 function commitar(vault, arquivos, mensagem) {
   try {
-    if (!sujos(vault, arquivos)?.length) return { ok: true, hash: head(vault), vazio: true };
+    const sujas = sujos(vault, arquivos);
+    if (!sujas?.length) return { ok: true, hash: head(vault), vazio: true };
+    // Arquivo novo (ainda fora do git) precisa entrar antes do `commit --only`.
+    const novos = sujas.filter((l) => l.startsWith('??')).map((l) => l.slice(3).replace(/^"|"$/g, ''));
+    if (novos.length) git(vault, ['add', '--', ...novos]);
     git(vault, [...identidade(vault), 'commit', '--only', '-m', mensagem, '--', ...arquivos]);
     return { ok: true, hash: head(vault), vazio: false };
   } catch (e) {

@@ -40,9 +40,9 @@ test('servidor: /api/nav, /api/home, Home e páginas antigas', async (t) => {
   const home = await pedir(server, '/api/home');
   assert.equal(home.status, 200);
   const h = JSON.parse(home.corpo);
-  assert.deepEqual(h.cartoes.map((c) => [c.area, !!c.erro]), [['agenda', false], ['kanban', false], ['financeiro', false], ['estudos', false], ['orcamento', false], ['propostas', false], ['contratos', false], ['metas', false], ['tempo', false], ['biblioteca', false], ['demandas', false], ['relatorios', false], ['quebrada', true]]);
+  assert.deepEqual(h.cartoes.map((c) => [c.area, !!c.erro]), [['agenda', false], ['kanban', false], ['financeiro', false], ['estudos', false], ['orcamento', false], ['propostas', false], ['contratos', false], ['metas', false], ['tempo', false], ['biblioteca', false], ['demandas', false], ['relatorios', false], ['hoje', false], ['quebrada', true]]);
 
-  for (const rota of ['/', '/agenda', '/api/agenda', '/kanban', '/api/kanban', '/financeiro', '/financeiro/diagnostico', '/estudos', '/tempo', '/api/tempo', '/biblioteca', '/api/biblioteca', '/demandas', '/api/demandas', '/relatorios', '/api/relatorios?tipo=mes&ref=2026-02-15', '/orcamento', '/api/financeiro', '/api/estudos', '/static/shell.js'])
+  for (const rota of ['/', '/agenda', '/api/agenda', '/kanban', '/api/kanban', '/financeiro', '/financeiro/diagnostico', '/estudos', '/tempo', '/api/tempo', '/biblioteca', '/api/biblioteca', '/demandas', '/api/demandas', '/relatorios', '/hoje', '/api/hoje', '/api/relatorios?tipo=mes&ref=2026-02-15', '/orcamento', '/api/financeiro', '/api/estudos', '/static/shell.js'])
     assert.equal((await pedir(server, rota)).status, 200, rota);
   assert.equal((await pedir(server, '/naoexiste')).status, 404); // em breve: sem página vazia
   assert.equal((await pedir(server, '/api/nav', 'evil.example')).status, 421);

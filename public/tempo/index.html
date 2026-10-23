@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/static/base.css">
   <link rel="stylesheet" href="/static/shell.css">
   <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/escrita.css">
   <link rel="stylesheet" href="/static/tempo.css">
 </head>
 <body>
@@ -34,9 +35,9 @@
         <div class="acoes">
           <button type="button" class="botao" id="cron-iniciar">Iniciar</button>
           <button type="button" class="botao" id="cron-zerar">Zerar</button>
-          <button type="button" class="botao" id="cron-copiar">Copiar linha</button>
+          <button type="button" class="botao" id="cron-gravar">Gravar</button>
         </div>
-        <p class="dica" id="cron-dica">Conta o tempo aqui; "Copiar linha" gera a linha da tabela de 80-tempo para colar no Obsidian. O site não grava.</p>
+        <p class="dica" id="cron-dica" role="status">Conta o tempo aqui; "Gravar" acrescenta a linha em 80-tempo/AAAA-MM.md e zera o cronômetro.</p>
       </section>
 
       <section class="destaque" aria-labelledby="pomo-t">
@@ -59,6 +60,22 @@
       <dl id="resumo" class="resumo-tempo"></dl>
     </section>
 
+    <details class="novo" id="manual">
+      <summary>Registrar à mão</summary>
+      <form id="manual-form" class="formulario" autocomplete="off">
+        <div class="par">
+          <div class="campo"><label for="m-projeto">Projeto</label><input id="m-projeto" class="controle" type="text" list="projetos" maxlength="60" required></div>
+          <div class="campo"><label for="m-data">Data</label><input id="m-data" class="controle" type="date" required></div>
+        </div>
+        <div class="par">
+          <div class="campo"><label for="m-min">Minutos</label><input id="m-min" class="controle" type="number" min="1" max="1440" step="1" required></div>
+          <div class="campo"><label for="m-nota">Nota (opcional)</label><input id="m-nota" class="controle" type="text" maxlength="120"></div>
+        </div>
+        <button type="submit" class="botao">Registrar</button>
+        <p class="dica" id="manual-msg" role="status"></p>
+      </form>
+    </details>
+
     <section class="secao" aria-labelledby="semana-t">
       <h2 id="semana-t">Esta semana</h2>
       <div id="semana"></div>
@@ -78,6 +95,7 @@
 
   <script src="/static/shell.js"></script>
   <script src="/static/live.js"></script>
+  <script src="/static/escrita.js"></script>
   <script src="/tempo/relogio.js"></script>
   <script src="/tempo/relogios.js"></script>
   <script src="/tempo/app.js"></script>

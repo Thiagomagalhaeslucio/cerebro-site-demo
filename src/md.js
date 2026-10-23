@@ -28,7 +28,7 @@ function findSection(text, titlePrefix) {
 }
 
 function splitRow(line) {
-  return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
+  return line.trim().replace(/^\|/, '').replace(/(?<!\\)\|$/, '').split(/(?<!\\)\|/).map((c) => c.replace(/\\\|/g, '|').trim());
 }
 
 // Todas as tabelas do texto: [{ header: [...], rows: [[...]] }].

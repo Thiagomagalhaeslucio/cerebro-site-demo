@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/static/base.css">
   <link rel="stylesheet" href="/static/shell.css">
   <link rel="stylesheet" href="/static/semana.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/escrita.css">
 </head>
 <body>
   <main class="pagina">
@@ -33,12 +35,27 @@
       </label>
     </div>
 
+    <details class="novo" id="novo">
+      <summary>Novo card</summary>
+      <form id="novo-form" class="formulario" autocomplete="off">
+        <div class="campo"><label for="n-titulo">Título</label><input id="n-titulo" class="controle" type="text" maxlength="160" required></div>
+        <div class="par">
+          <div class="campo"><label for="n-coluna">Coluna</label><select id="n-coluna" class="controle"></select></div>
+          <div class="campo"><label for="n-prazo">Prazo (opcional)</label><input id="n-prazo" class="controle" type="date"></div>
+        </div>
+        <div class="campo"><label for="n-projeto">Projeto (opcional)</label><input id="n-projeto" class="controle" type="text" list="n-projetos" maxlength="40"><datalist id="n-projetos"></datalist></div>
+        <button type="submit" class="botao">Criar card</button>
+        <p class="dica" id="novo-msg" role="status"></p>
+      </form>
+    </details>
+
     <section id="quadro" class="destaque quadro" aria-label="Colunas do kanban"></section>
-    <p class="nota">Só leitura: os cards mudam pela skill <code>semana</code> ou no Obsidian. Atrasado quer dizer que o prazo passou e o card não está em Feito.</p>
+    <p class="nota">Crie cards e mude de coluna aqui; renomear e apagar ficam no Obsidian. Cada mudança vira um commit no vault. Atrasado quer dizer que o prazo passou e o card não está em Feito.</p>
   </main>
 
   <script src="/static/shell.js"></script>
   <script src="/static/live.js"></script>
+  <script src="/static/escrita.js"></script>
   <script src="/kanban/app.js"></script>
 </body>
 </html>

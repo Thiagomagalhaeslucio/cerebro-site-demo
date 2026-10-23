@@ -76,6 +76,18 @@
     }
   }
 
+  const hojeLocal = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  $('m-data').value = hojeLocal();
+  $('manual-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const corpo = { projeto: $('m-projeto').value, data: $('m-data').value, min: Number($('m-min').value) };
+    if ($('m-nota').value.trim()) corpo.nota = $('m-nota').value.trim();
+    $('manual-msg').textContent = 'Gravando...';
+    const r = await window.escreverNoVault('tempo/registrar', corpo);
+    $('manual-msg').textContent = r.ok ? `Gravado: ${corpo.projeto}, ${corpo.min} min.` : r.mensagem;
+    if (r.ok) { $('m-min').value = ''; $('m-nota').value = ''; }
+  });
+
   carregar();
   window.aoVivo('tempo', carregar);
 })();

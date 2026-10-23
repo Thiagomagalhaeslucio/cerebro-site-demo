@@ -2,8 +2,8 @@
 
 // Roteiro de navegador do cronômetro e do pomodoro de /tempo.
 //   node scripts/teste-tempo-ui.js [--png=<pasta>]   (com --png, grava capturas de conferência)
-// Sobe o site (somente leitura) sobre o vault de exemplo e dirige o Firefox headless por Marionette.
-// O estado do relógio fica no localStorage do perfil temporário; nada vai ao vault. Fora do `npm test`.
+// Sobe o site sobre uma CÓPIA TEMPORÁRIA do vault de exemplo e dirige o Firefox headless por Marionette.
+// O estado do relógio fica no localStorage do perfil temporário; o cronômetro só escreve ao apertar Gravar (na cópia). Fora do `npm test`.
 
 const { spawn } = require('node:child_process');
 const fs = require('node:fs');
@@ -12,7 +12,8 @@ const path = require('node:path');
 const { Marionette, iniciarFirefox, portaLivre, dormir } = require('./capturas');
 
 const RAIZ = path.join(__dirname, '..');
-const VAULT = path.join(RAIZ, 'test', 'fixtures', 'vault-exemplo');
+const FIXTURE = path.join(RAIZ, 'test', 'fixtures', 'vault-exemplo');
+let VAULT = FIXTURE; // main() troca por uma cópia temporária: Gravar escreve de verdade
 const PNG = (process.argv.find((a) => a.startsWith('--png=')) || '').slice(6) || null;
 const CHAVE = 'cerebro.tempo.relogios';
 
@@ -42,7 +43,7 @@ async function roteiro(m) {
 
   console.log('Cronômetro');
   ok((await texto(m, 'cron-digitos')) === '00:00', 'começa em 00:00');
-  ok(await m.js(`return document.getElementById('cron-zerar').disabled && document.getElementById('cron-copiar').disabled`), 'Zerar e Copiar começam desligados');
+  ok(await m.js(`return document.getElementById('cron-zerar').disabled && document.getElementById('cron-gravar').disabled`), 'Zerar e Gravar começam desligados');
   await m.digitar('#cron-projeto', 'projeto-alfa');
   await m.clicar('#cron-iniciar');
   await dormir(2300);
@@ -55,7 +56,7 @@ async function roteiro(m) {
   await dormir(1500);
   ok((await texto(m, 'cron-digitos')) === parado, 'pausado, não anda');
   ok((await texto(m, 'cron-iniciar')) === 'Continuar', 'o botão vira Continuar');
-  ok(await m.js(`return document.getElementById('cron-copiar').disabled`), 'menos de 30 s: Copiar desligado');
+  ok(await m.js(`return document.getElementById('cron-gravar').disabled`), 'menos de 30 s: Gravar desligado');
   await abrir(m);
   ok((await texto(m, 'cron-digitos')) === parado, 'recarregar a página mantém o tempo');
   ok((await m.js(`return document.getElementById('cron-projeto').value`)) === 'projeto-alfa', 'recarregar mantém o projeto');
@@ -67,11 +68,25 @@ async function roteiro(m) {
   await abrir(m);
   ok((await texto(m, 'cron-digitos')).startsWith('1:30:0'), `continua contando (${await texto(m, 'cron-digitos')})`);
   await m.clicar('#cron-iniciar');
-  ok(!(await m.js(`return document.getElementById('cron-copiar').disabled`)), 'parado com mais de 30 s: Copiar ligado');
-  await m.clicar('#cron-copiar');
-  await esperarAte(m, `document.getElementById('cron-dica').textContent.startsWith('Linha copiada') || document.getElementById('cron-dica').textContent.startsWith('Não consegui copiar')`, 'resposta do Copiar');
+  ok(!(await m.js(`return document.getElementById('cron-gravar').disabled`)), 'parado com mais de 30 s: Gravar ligado');
+  await m.digitar('#cron-projeto', '');
+  await m.clicar('#cron-gravar');
+  await esperarAte(m, `document.getElementById('cron-dica').textContent.length > 0 && !document.getElementById('cron-dica').textContent.startsWith('Conta o tempo')`, 'resposta do Gravar');
   const dica = await texto(m, 'cron-dica');
-  ok(/\| \d{4}-\d{2}-\d{2} \| projeto-alfa \| \d\d:\d\d \| \d\d:\d\d \| 90 \|/.test(dica) || dica.startsWith('Linha copiada'), 'Copiar linha: copiou ou mostrou a linha com 90 min');
+  ok(dica.startsWith('Gravado: projeto-alfa, 90 min') || dica.startsWith('Escreva o projeto'), `Gravar responde (${dica})`);
+  if (dica.startsWith('Gravado')) {
+    const mes = fs.readdirSync(path.join(VAULT, '80-tempo')).map((f) => fs.readFileSync(path.join(VAULT, '80-tempo', f), 'utf8')).join('\n');
+    ok(/\| \d{4}-\d{2}-\d{2} \| projeto-alfa \| \d\d:\d\d \| \d\d:\d\d \| 90 \|/.test(mes), 'a linha de 90 min está no arquivo do mês');
+    ok((await texto(m, 'cron-digitos')) === '00:00', 'depois de gravar o cronômetro zera');
+  }
+
+  console.log('Registrar à mão');
+  await m.js(`document.getElementById('manual').open = true`);
+  await m.digitar('#m-projeto', 'projeto-beta');
+  await m.digitar('#m-min', '45');
+  await m.clicar('#manual-form button[type=submit]');
+  await esperarAte(m, `document.getElementById('manual-msg').textContent.startsWith('Gravado')`, 'registro à mão gravado');
+  ok(fs.readdirSync(path.join(VAULT, '80-tempo')).some((f) => /\| projeto-beta \|[^\n]*\| 45 \|/.test(fs.readFileSync(path.join(VAULT, '80-tempo', f), 'utf8'))), 'a linha de 45 min está no arquivo');
 
   console.log('Pomodoro');
   await m.js(`localStorage.clear()`);
@@ -120,11 +135,13 @@ async function roteiro(m) {
 
 async function main() {
   const perfil = fs.mkdtempSync(path.join(os.tmpdir(), 'cerebro-tempo-ui-'));
+  VAULT = path.join(perfil, 'vault');
+  fs.cpSync(FIXTURE, VAULT, { recursive: true });
   let servidor = null;
   let firefox = null;
   try {
     const porta = await portaLivre();
-    servidor = spawn(process.execPath, [path.join(RAIZ, 'server.js'), `--vault=${VAULT}`, `--porta=${porta}`], { stdio: 'ignore', env: { ...process.env, CEREBRO_SEM_LOCAL: '1' } });
+    servidor = spawn(process.execPath, [path.join(RAIZ, 'server.js'), `--vault=${VAULT}`, `--porta=${porta}`], { stdio: 'ignore', env: { ...process.env, CEREBRO_SEM_LOCAL: '1', CEREBRO_ESTADO_DIR: path.join(perfil, 'estado') } });
     for (let t = 0; ; t++) {
       try { if ((await fetch(`http://127.0.0.1:${porta}/`)).ok) break; } catch { /* subindo */ }
       if (t > 40) throw new Error('o site não subiu');

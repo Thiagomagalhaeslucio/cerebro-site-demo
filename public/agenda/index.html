@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/static/base.css">
   <link rel="stylesheet" href="/static/shell.css">
   <link rel="stylesheet" href="/static/semana.css">
+  <link rel="stylesheet" href="/static/formulario.css">
+  <link rel="stylesheet" href="/static/escrita.css">
 </head>
 <body>
   <main class="pagina">
@@ -29,6 +31,26 @@
       <p class="legenda" id="legenda" aria-label="Origem dos itens"></p>
     </div>
 
+    <details class="novo" id="novo">
+      <summary>Novo compromisso</summary>
+      <form id="novo-form" class="formulario" autocomplete="off">
+        <div class="par">
+          <div class="campo"><label for="a-titulo">Título</label><input id="a-titulo" class="controle" type="text" maxlength="120" required></div>
+          <div class="campo"><label for="a-tipo">Tipo</label><select id="a-tipo" class="controle"><option value="">sem tipo</option></select></div>
+        </div>
+        <div class="par">
+          <div class="campo"><label for="a-data">Data</label><input id="a-data" class="controle" type="date" required></div>
+          <div class="campo"><label for="a-obs">Observação (opcional)</label><input id="a-obs" class="controle" type="text" maxlength="200"></div>
+        </div>
+        <div class="par">
+          <div class="campo"><label for="a-inicio">Início (vazio = dia inteiro)</label><input id="a-inicio" class="controle" type="time"></div>
+          <div class="campo"><label for="a-fim">Fim</label><input id="a-fim" class="controle" type="time"></div>
+        </div>
+        <button type="submit" class="botao">Pôr na agenda</button>
+        <p class="dica" id="novo-msg" role="status"></p>
+      </form>
+    </details>
+
     <section id="visao-lista" role="tabpanel" aria-labelledby="aba-lista">
       <div class="dias" id="dias"></div>
     </section>
@@ -43,11 +65,12 @@
       <div class="dia-escolhido" id="dia-escolhido"></div>
     </section>
 
-    <p class="nota">Só leitura. Compromissos vêm de <code>10-diario/agenda.md</code> (skill <code>semana</code> ou Obsidian); prazos, dos cards abertos do kanban; o resto, das datas das outras áreas.</p>
+    <p class="nota">Compromissos novos entram aqui (editar e apagar, no Obsidian). Vêm de <code>10-diario/agenda.md</code> (skill <code>semana</code> ou Obsidian); prazos, dos cards abertos do kanban; o resto, das datas das outras áreas.</p>
   </main>
 
   <script src="/static/shell.js"></script>
   <script src="/static/live.js"></script>
+  <script src="/static/escrita.js"></script>
   <script src="/agenda/app.js"></script>
 </body>
 </html>

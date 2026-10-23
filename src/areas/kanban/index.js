@@ -2,6 +2,7 @@
 
 const { DIR, readKanban, prazosAbertos } = require('./data');
 const { addDays } = require('../../datas');
+const { operar } = require('./gravar');
 
 // Cartão da Home: feitos/total da semana e atrasados.
 function resumo(vault, ctx) {
@@ -32,6 +33,7 @@ module.exports = {
   titulo: 'Kanban semanal',
   watch: [DIR],
   api: { '': (vault, ctx) => readKanban(vault, ctx.hoje) },
+  post: { operar },
   resumo,
   datas,
   // O arquivo da semana que a página abre.
