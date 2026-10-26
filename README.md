@@ -359,12 +359,6 @@ Plano completo, paleta e decisões em [`docs/design.md`](docs/design.md).
 
 Construído com apoio de IA (Claude e Claude Code). As decisões de produto e as regras de negócio são do autor e estão registradas em [`docs/design.md`](docs/design.md) e nos testes.
 
-## Roadmap
-
-Falta fazer:
-
-- Sincronia com o Google Calendar
-
 ## Licença
 
 Todos os direitos reservados por ora.
